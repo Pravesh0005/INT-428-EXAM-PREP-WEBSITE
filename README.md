@@ -51,7 +51,8 @@ alt="Typing SVG"/>
 - [📊 Exam Analysis](#-exam-analysis)
 - [🧠 Unit Breakdown](#-unit-breakdown)
 - [🎯 High-Yield Topics](#-high-yield-topics)
-- [🚀 Try It Now](#-try-it-now)
+- [🎮 Interactive Experience](#-interactive-experience)
+- [🌐 Live Demo](#-live-demo)
 - [🛠 Tech Stack](#-tech-stack)
 - [📁 File Structure](#-file-structure)
 - [🎓 Study Strategy](#-study-strategy)
@@ -331,7 +332,7 @@ start int428.html
 
 ---
 
-## 🚀 Try It Now
+## 🎮 Interactive Experience
 
 <div align="center">
 
@@ -346,6 +347,50 @@ start int428.html
 </div>
 
 ---
+
+## 🌐 Live Demo
+
+<div align="center">
+
+<a href="https://int-428.netlify.app/" target="_blank">
+  <img src="https://img.shields.io/badge/🚀_Open_Live_Demo-INT428_AI_Essentials-00C853?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Demo"/>
+</a>
+
+<br><br>
+
+**Experience the full INT428 AI Essentials exam prep platform in your browser.**
+
+<br>
+
+<a href="https://int-428.netlify.app/" target="_blank">
+  <img src="https://img.shields.io/badge/Live%20Website-int--428.netlify.app-7c3aed?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website Link"/>
+</a>
+
+<a href="https://int-428.netlify.app/" target="_blank">
+  <img src="https://img.shields.io/badge/Fully%20Responsive-Desktop%20%2B%20Mobile-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" alt="Responsive"/>
+</a>
+
+<a href="https://int-428.netlify.app/" target="_blank">
+  <img src="https://img.shields.io/badge/100%25_Offline-Study%20Anytime-22c55e?style=for-the-badge&logo=pwa&logoColor=white" alt="Offline"/>
+</a>
+
+<br><br>
+
+<sub><b>One click. Full revision. Zero setup.</b></sub>
+
+</div>
+
+---
+
+### ✨ What You Can Explore
+
+- 📚 Complete notes for all 6 units
+- ❓ 120+ exam-style MCQs
+- 🃏 Interactive flashcards
+- 📝 Timed mock tests
+- 📋 Cheat sheets and formula sheets
+- 📊 Comparison tables
+- 🎯 High-yield revision material
 
 ## 🛠 Tech Stack
 
