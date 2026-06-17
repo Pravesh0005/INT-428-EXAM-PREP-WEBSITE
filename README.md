@@ -56,7 +56,9 @@ alt="Typing SVG"/>
 - [📁 File Structure](#-file-structure)
 - [🎓 Study Strategy](#-study-strategy)
 - [🤝 Contributing](#-contributing)
+- [🌟 Star History](#-star-history)
 - [📄 License](#-license)
+- [🙏 Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -470,11 +472,11 @@ git push origin feature/add-more-mcqs
 ## 🌟 Star History
 
 <div align="center">
-  <a href="https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE">
-    <img src="https://img.shields.io/github/stars/yourusername/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Stars"/>
+  <a href="https://github.com/Pravesh0005/INT-428-EXAM-PREP-WEBSITE">
+    <img src="https://img.shields.io/github/stars/Pravesh0005/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Stars"/>
   </a>
-  <a href="https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE/fork">
-    <img src="https://img.shields.io/github/forks/yourusername/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Forks"/>
+  <a href="https://github.com/Pravesh0005/INT-428-EXAM-PREP-WEBSITE/fork">
+    <img src="https://img.shields.io/github/forks/Pravesh0005/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Forks"/>
   </a>
 </div>
 
