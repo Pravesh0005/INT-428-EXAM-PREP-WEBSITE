@@ -352,31 +352,27 @@ start int428.html
 
 <div align="center">
 
-<a href="https://int-428.netlify.app/" target="_blank">
-  <img src="https://img.shields.io/badge/🚀_Open_Live_Demo-INT428_AI_Essentials-00C853?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Demo"/>
-</a>
-
-<br><br>
-
-**Experience the full INT428 AI Essentials exam prep platform in your browser.**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header&text=LIVE%20DEMO&fontSize=34&fontColor=ffffff&animation=twinkling" width="100%"/>
 
 <br>
 
-<a href="https://int-428.netlify.app/" target="_blank">
-  <img src="https://img.shields.io/badge/Live%20Website-int--428.netlify.app-7c3aed?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website Link"/>
-</a>
+### 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
 
-<a href="https://int-428.netlify.app/" target="_blank">
-  <img src="https://img.shields.io/badge/Fully%20Responsive-Desktop%20%2B%20Mobile-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" alt="Responsive"/>
-</a>
+# 🚀 [OPEN INT428 AI ESSENTIALS](https://int-428.netlify.app/)
 
-<a href="https://int-428.netlify.app/" target="_blank">
-  <img src="https://img.shields.io/badge/100%25_Offline-Study%20Anytime-22c55e?style=for-the-badge&logo=pwa&logoColor=white" alt="Offline"/>
+### 👆👆👆👆👆👆👆👆👆👆👆👆👆👆👆
+
+<br>
+
+<a href="https://int-428.netlify.app/">
+  <img src="https://img.shields.io/badge/✨_CLICK_TO_START_THE_EXPERIENCE-INT428_AI_ESSENTIALS-00C853?style=for-the-badge&logo=netlify&logoColor=white" alt="Open Live Demo"/>
 </a>
 
 <br><br>
 
-<sub><b>One click. Full revision. Zero setup.</b></sub>
+<sub><b>One click. Full revision. Zero setup. Built for instant exam prep.</b></sub>
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=70&section=footer" width="100%"/>
 
 </div>
 
