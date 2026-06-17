@@ -51,7 +51,7 @@ alt="Typing SVG"/>
 - [📊 Exam Analysis](#-exam-analysis)
 - [🧠 Unit Breakdown](#-unit-breakdown)
 - [🎯 High-Yield Topics](#-high-yield-topics)
-- [📸 Screenshots](#-screenshots)
+- [🚀 Try It Now](#-try-it-now)
 - [🛠 Tech Stack](#-tech-stack)
 - [📁 File Structure](#-file-structure)
 - [🎓 Study Strategy](#-study-strategy)
@@ -331,7 +331,7 @@ start int428.html
 
 ---
 
-## 📸 Screenshots
+## 🚀 Try It Now
 
 <div align="center">
 
@@ -374,7 +374,9 @@ Storage:   No backend required — fully client-side
 📂 INT428-AI-ExamPrep/
 │
 │
-├── 📂 source-materials/           
+├── 📂 source-materials/
+|   |
+|   | 
 │   ├── 📂 notes/
 │   |   ├── Unit 1 Materials
 │   |   ├── Unit 2 Materials
@@ -382,9 +384,13 @@ Storage:   No backend required — fully client-side
 │   |   ├── Unit 4 Materials
 │   |   ├── Unit 5 GenAI & Prompt Engineering
 │   |   └── Unit 6 Data Analytics & MLOps
+|   | 
+|   | 
 │   ├── 📂 papers/
 │   │   ├── Sample_Paper.pdf
 │   │   └── CA_Test2.jpg
+|   | 
+|   | 
 │   └── 📂 syllabus/
 │       └── INT428_Syllabus.pdf
 │
