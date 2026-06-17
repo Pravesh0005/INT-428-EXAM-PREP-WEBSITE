@@ -23,7 +23,8 @@
 
 <!-- ANIMATED TYPING EFFECT -->
 <p>
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=7c3aed&center=true&vCenter=true&multiline=true&width=700&height=60&lines=From+Zero+to+Full+Marks+in+INT428+🧠;120%2B+MCQs+%7C+40+Flashcards+%7C+Mock+Tests+📝;Built+from+Syllabus+%2B+Sample+Papers+%2B+CA+Papers+🎯" alt="Typing SVG"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&pause=1000&color=7c3aed&center=true&vCenter=true&multiline=true&width=700&height=60&lines=From+Zero+to+Full+Marks+in+INT428;120%2B+MCQs+%7C+40+Flashcards+%7C+Mock+Tests;Built+from+Syllabus+%2B+Sample+Papers+%2B+CA+Papers"
+alt="Typing SVG"/>
 </p>
 
 <br/>
