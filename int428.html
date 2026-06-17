@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INT428 AI Essentials — Ultimate Exam Prep</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#18181f;--glass:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--accent:#7c3aed;--accent2:#06b6d4;--accent3:#f59e0b;--green:#10b981;--red:#ef4444;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;min-width:260px;background:var(--bg2);border-right:1px solid var(--border);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;transition:.3s}
+.sidebar.hidden{transform:translateX(-260px)}
+.main{margin-left:260px;flex:1;transition:.3s}
+.main.expanded{margin-left:0}
+.logo{padding:20px;border-bottom:1px solid var(--border);text-align:center}
+.logo-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:.65rem;color:var(--text3);margin-top:2px;font-family:'DM Mono',monospace}
+.nav-section{padding:12px 10px 4px;font-size:.65rem;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:2px 8px;border-radius:8px;cursor:pointer;transition:.2s;font-size:.83rem;color:var(--text2);text-decoration:none;border:1px solid transparent}
+.nav-item:hover,.nav-item.active{background:var(--glass);color:var(--text);border-color:var(--border)}
+.nav-item.active{background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.3);color:var(--accent)}
+.nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:.6rem;padding:2px 6px;border-radius:10px}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.menu-btn{background:none;border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:1rem}
+.search-bar{flex:1;position:relative;max-width:400px}
+.search-bar input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 14px 8px 36px;border-radius:8px;font-size:.85rem;font-family:'Outfit',sans-serif;outline:none;transition:.2s}
+.search-bar input:focus{border-color:var(--accent)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3)}
+.topbar-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.score-pill{background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:var(--green);padding:5px 12px;border-radius:20px;font-size:.78rem;font-family:'DM Mono',monospace}
+.timer-pill{background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:var(--accent3);padding:5px 12px;border-radius:20px;font-size:.78rem;font-family:'DM Mono',monospace;cursor:pointer}
+.page{display:none;padding:28px}
+.page.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.08));border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-10%;width:300px;height:300px;background:radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%);pointer-events:none}
+.hero-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.9rem;line-height:1.2;margin-bottom:8px}
+.hero-sub{color:var(--text2);font-size:.9rem;max-width:600px;line-height:1.6}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.htag{background:var(--glass);border:1px solid var(--border);padding:4px 12px;border-radius:20px;font-size:.75rem;color:var(--text2)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:.75rem;color:var(--text3);margin-top:4px}
+.section-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+table{width:100%;border-collapse:collapse;margin-bottom:20px;font-size:.83rem}
+th{background:rgba(124,58,237,0.15);color:var(--accent);padding:9px 12px;text-align:left;font-weight:600;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.72rem;text-transform:uppercase}
+td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text2);vertical-align:top}
+tr:hover td{background:var(--glass)}
+.prob-bar{background:var(--bg3);border-radius:4px;height:6px;margin-top:6px;overflow:hidden}
+.prob-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.68rem;font-weight:600;font-family:'DM Mono',monospace}
+.tag.hot{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#f87171}
+.tag.imp{background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);color:#fbbf24}
+.tag.mcq{background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.4);color:#22d3ee}
+.tag.green{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);color:#34d399}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;margin-bottom:24px}
+.unit-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.unit-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.unit-card:nth-child(1)::before{background:linear-gradient(90deg,#7c3aed,#a855f7)}
+.unit-card:nth-child(2)::before{background:linear-gradient(90deg,#06b6d4,#0ea5e9)}
+.unit-card:nth-child(3)::before{background:linear-gradient(90deg,#10b981,#059669)}
+.unit-card:nth-child(4)::before{background:linear-gradient(90deg,#f59e0b,#d97706)}
+.unit-card:nth-child(5)::before{background:linear-gradient(90deg,#ec4899,#db2777)}
+.unit-card:nth-child(6)::before{background:linear-gradient(90deg,#ef4444,#dc2626)}
+.unit-card:hover{border-color:rgba(255,255,255,0.15);transform:translateY(-2px)}
+.unit-num{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text3);margin-bottom:6px}
+.unit-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:8px}
+.unit-topics{font-size:.78rem;color:var(--text2);line-height:1.5}
+.unit-footer{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.concept{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px;border-left:3px solid var(--accent)}
+.concept.green{border-left-color:var(--green)}
+.concept.amber{border-left-color:var(--accent3)}
+.concept.cyan{border-left-color:var(--accent2)}
+.concept h3{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.concept p,.concept li{font-size:.83rem;color:var(--text2);line-height:1.7}
+.concept ul,.concept ol{padding-left:18px}
+.concept li{margin-bottom:4px}
+.formula-box{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.3);border-radius:8px;padding:12px;margin:10px 0;font-family:'DM Mono',monospace;font-size:.8rem;color:#c4b5fd;line-height:1.9;white-space:pre-wrap}
+.trap-box{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:.8rem;color:#fca5a5}
+.trap-box strong{color:#ef4444;display:block;margin-bottom:4px}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.compare-col{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px}
+.compare-col h4{font-size:.78rem;font-weight:700;margin-bottom:8px;color:var(--accent)}
+.compare-col li{font-size:.76rem;color:var(--text2);margin-bottom:4px}
+.memory-trick{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:10px 14px;font-size:.8rem;color:#fcd34d;font-style:italic;margin-top:8px}
+.mcq-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.8rem;transition:.2s}
+.filter-btn.active,.filter-btn:hover{background:rgba(124,58,237,0.2);border-color:rgba(124,58,237,0.4);color:var(--accent)}
+.mcq-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;transition:.2s}
+.mcq-card.correct-card{border-color:var(--green);background:rgba(16,185,129,0.05)}
+.mcq-card.wrong-card{border-color:var(--red);background:rgba(239,68,68,0.05)}
+.mcq-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.mcq-num{background:var(--accent);color:#fff;min-width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-family:'DM Mono',monospace;font-weight:600;margin-top:2px;flex-shrink:0}
+.mcq-q{font-size:.88rem;line-height:1.6;flex:1}
+.mcq-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.options{display:grid;gap:8px;margin-bottom:14px}
+.option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:.2s;font-size:.83rem;line-height:1.5}
+.option:hover{border-color:rgba(124,58,237,0.4);background:rgba(124,58,237,0.05)}
+.option.selected{border-color:var(--accent);background:rgba(124,58,237,0.1)}
+.option.correct{border-color:var(--green)!important;background:rgba(16,185,129,0.1)!important}
+.option.wrong{border-color:var(--red)!important;background:rgba(239,68,68,0.1)!important}
+.opt-letter{min-width:22px;height:22px;border-radius:4px;background:var(--bg2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;font-weight:700;flex-shrink:0}
+.mcq-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:7px 15px;border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Outfit',sans-serif;font-weight:600;border:none;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#6d28d9}
+.btn-secondary{background:var(--bg3);border:1px solid var(--border);color:var(--text2)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.answer-reveal{background:var(--bg3);border-radius:8px;padding:14px;margin-top:12px;font-size:.83rem;display:none;animation:fadeIn .2s ease}
+.answer-reveal.show{display:block}
+.correct-ans{color:var(--green);font-weight:600;font-family:'DM Mono',monospace;margin-bottom:8px;font-size:.82rem}
+.explanation{color:var(--text2);line-height:1.6}
+.progress-bar{background:var(--bg3);border-radius:4px;height:4px;margin-bottom:20px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:.5s}
+.cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;margin-bottom:24px}
+.cheat-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px}
+.cheat-card h3{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;margin-bottom:12px;color:var(--accent2)}
+.cheat-item{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.78rem;line-height:1.5}
+.cheat-item:last-child{border:none}
+.cheat-key{font-family:'DM Mono',monospace;color:var(--accent3);min-width:90px;font-size:.72rem;flex-shrink:0}
+.cheat-val{color:var(--text2)}
+.flashcard-container{perspective:1000px;margin-bottom:20px}
+.flashcard{width:100%;height:200px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+.flashcard.flipped{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.flashcard-front{background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(6,182,212,0.1));border:1px solid rgba(124,58,237,0.3);font-family:'Syne',sans-serif;font-size:1rem;font-weight:700}
+.flashcard-back{background:linear-gradient(135deg,rgba(16,185,129,0.15),rgba(6,182,212,0.08));border:1px solid rgba(16,185,129,0.3);transform:rotateY(180deg);font-size:.83rem;color:var(--text2);line-height:1.6}
+.flashcard-nav{display:flex;gap:10px;align-items:center;margin-top:12px}
+.fc-counter{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3);margin:0 auto}
+.mock-header{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+.mock-timer{font-family:'DM Mono',monospace;font-size:2rem;font-weight:700;color:var(--accent3)}
+.question-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-bottom:20px}
+.q-bubble{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-family:'DM Mono',monospace;cursor:pointer;background:var(--bg3)}
+.q-bubble.answered{background:rgba(124,58,237,0.3);border-color:var(--accent)}
+.q-bubble.correct{background:rgba(16,185,129,0.3);border-color:var(--green)}
+.q-bubble.wrong{background:rgba(239,68,68,0.3);border-color:var(--red)}
+.top100-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:10px;margin-bottom:20px}
+.top100-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;display:flex;gap:10px;align-items:flex-start;font-size:.8rem;line-height:1.5}
+.top100-num{font-family:'DM Mono',monospace;color:var(--accent);font-size:.72rem;font-weight:700;min-width:26px;margin-top:2px}
+.formula-row{display:grid;grid-template-columns:140px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:.8rem}
+.formula-name{font-family:'DM Mono',monospace;color:var(--accent3)}
+.formula-expr{font-family:'DM Mono',monospace;color:#a5f3fc;background:var(--bg3);padding:3px 9px;border-radius:4px;word-break:break-all}
+.inferred-badge{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#fbbf24;font-size:.65rem;padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace}
+.search-result{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px;cursor:pointer}
+.search-result:hover{border-color:var(--accent)}
+.sr-title{font-weight:600;margin-bottom:4px;font-size:.88rem}
+.sr-context{font-size:.78rem;color:var(--text2)}
+.sr-type{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--accent3);margin-bottom:4px}
+@media(max-width:768px){.sidebar{transform:translateX(-260px)}.sidebar.mobile-open{transform:translateX(0)}.main{margin-left:0}.stats-row{grid-template-columns:repeat(2,1fr)}.compare-grid{grid-template-columns:1fr}.question-grid{grid-template-columns:repeat(6,1fr)}}
+@media print{.sidebar,.topbar{display:none}.main{margin:0}.page.active{padding:10px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-title">⚡ INT428 AI EXAM PREP</div>
+    <div class="logo-sub">ARTIFICIAL INTELLIGENCE ESSENTIALS</div>
+  </div>
+  <div class="nav-section">Dashboard</div>
+  <a class="nav-item active" onclick="showPage('dashboard')" href="#">🏠 Dashboard</a>
+  <a class="nav-item" onclick="showPage('analysis')" href="#">📊 Exam Analysis <span class="nav-badge">HOT</span></a>
+  <div class="nav-section">Unit Notes</div>
+  <a class="nav-item" onclick="showPage('unit1')" href="#">1️⃣ Unit 1 – Foundations & AI</a>
+  <a class="nav-item" onclick="showPage('unit2')" href="#">2️⃣ Unit 2 – Search Algorithms</a>
+  <a class="nav-item" onclick="showPage('unit3')" href="#">3️⃣ Unit 3 – Machine Learning</a>
+  <a class="nav-item" onclick="showPage('unit4')" href="#">4️⃣ Unit 4 – Deep Learning & NLP</a>
+  <a class="nav-item" onclick="showPage('unit5')" href="#">5️⃣ Unit 5 – Generative AI <span class="nav-badge">★</span></a>
+  <a class="nav-item" onclick="showPage('unit6')" href="#">6️⃣ Unit 6 – Data & MLOps</a>
+  <div class="nav-section">Revision</div>
+  <a class="nav-item" onclick="showPage('cheatsheet')" href="#">📋 Cheat Sheets</a>
+  <a class="nav-item" onclick="showPage('formulas')" href="#">🔢 Formula Sheet</a>
+  <a class="nav-item" onclick="showPage('top100')" href="#">🏆 Top 100 Points</a>
+  <a class="nav-item" onclick="showPage('compare')" href="#">⚖️ Comparison Tables</a>
+  <a class="nav-item" onclick="showPage('flashcards')" href="#">🃏 Flashcards (40)</a>
+  <div class="nav-section">Practice</div>
+  <a class="nav-item" onclick="showPage('mcq')" href="#">❓ MCQ Bank <span class="nav-badge">105+</span></a>
+  <a class="nav-item" onclick="showPage('mocktest')" href="#">📝 Mock Test</a>
+</aside>
+<div class="main" id="mainContent">
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="search-bar"><span class="search-icon">🔍</span><input type="text" id="searchInput" placeholder="Search topics, concepts, keywords..." oninput="doSearch(this.value)"></div>
+    <div class="topbar-right">
+      <div class="score-pill" id="scorePill">Score: 0/0</div>
+      <div class="timer-pill" id="timerPill" onclick="toggleTimer()">⏱ 00:00</div>
+      <button class="btn btn-secondary" onclick="window.print()" style="padding:5px 10px">🖨 Print</button>
+    </div>
+  </div>
+
+  <!-- SEARCH PAGE -->
+  <div class="page" id="page-search" style="display:none">
+    <div class="section-title">🔍 Search Results</div>
+    <div id="searchResults"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div class="hero">
+      <div class="hero-title">🧠 INT428 AI Essentials<br>Ultimate Exam Prep Package</div>
+      <div class="hero-sub">Complete crash course built from your syllabus, sample paper (60 Qs), CA papers & unit notes (Units 1–4). Units 5–6 intelligently inferred. Optimized for MCQ-based exam.</div>
+      <div class="hero-tags">
+        <span class="htag">📚 6 Units</span><span class="htag">❓ 105+ MCQs</span><span class="htag">🃏 40 Flashcards</span><span class="htag">📝 Mock Test</span><span class="htag">📋 Cheat Sheets</span><span class="htag">🏆 Top 100 Points</span>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Units Covered</div></div>
+      <div class="stat-card"><div class="stat-num">105+</div><div class="stat-label">MCQs Generated</div></div>
+      <div class="stat-card"><div class="stat-num">40</div><div class="stat-label">Flashcards</div></div>
+      <div class="stat-card"><div class="stat-num">60</div><div class="stat-label">Sample Paper Qs</div></div>
+    </div>
+    <div class="section-title">🎯 Unit Quick Access</div>
+    <div class="unit-grid">
+      <div class="unit-card" onclick="showPage('unit1')"><div class="unit-num">UNIT 01</div><div class="unit-name">Foundations & Applications</div><div class="unit-topics">Intelligence, AI types, Expert Systems, ML, DL, NLP, Applications, Toolkits</div><div class="unit-footer"><span class="tag imp">HIGH PRIORITY</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~8 MCQs</span></div></div>
+      <div class="unit-card" onclick="showPage('unit2')"><div class="unit-num">UNIT 02</div><div class="unit-name">Problem Solving & Search</div><div class="unit-topics">BFS, DFS, A*, Greedy, Heuristics, Water Jug, 8-Puzzle, Minimax, Hill Climbing</div><div class="unit-footer"><span class="tag hot">MOST REPEATED</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~12 MCQs</span></div></div>
+      <div class="unit-card" onclick="showPage('unit3')"><div class="unit-num">UNIT 03</div><div class="unit-name">Machine Learning</div><div class="unit-topics">Supervised/Unsupervised/RL, Bayes, KNN, K-Means, Confusion Matrix, Feature Eng.</div><div class="unit-footer"><span class="tag hot">NUMERICAL MCQs</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~12 MCQs</span></div></div>
+      <div class="unit-card" onclick="showPage('unit4')"><div class="unit-num">UNIT 04</div><div class="unit-name">Deep Learning & NLP</div><div class="unit-topics">Perceptron, MLP, CNN, RNN, Transformer, BERT, GPT, Chatbots, Attention</div><div class="unit-footer"><span class="tag hot">HIGHEST WEIGHT</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~14 MCQs</span></div></div>
+      <div class="unit-card" onclick="showPage('unit5')"><div class="unit-num">UNIT 05 <span class="inferred-badge">★ INFERRED</span></div><div class="unit-name">Generative AI & Prompts</div><div class="unit-topics">LLMs, GANs, VAE, Diffusion, Prompt Engineering, Zero-shot, Ethics</div><div class="unit-footer"><span class="tag mcq">MODERN AI</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~10 MCQs</span></div></div>
+      <div class="unit-card" onclick="showPage('unit6')"><div class="unit-num">UNIT 06 <span class="inferred-badge">★ INFERRED</span></div><div class="unit-name">Data, Tools & MLOps</div><div class="unit-topics">ChatGPT ADA, Tableau, Data pipelines, Cloud, MLOps, Error handling, Python</div><div class="unit-footer"><span class="tag mcq">TOOLS</span><span style="font-size:.72rem;color:var(--accent);margin-left:auto">~6 MCQs</span></div></div>
+    </div>
+    <div class="section-title">🔥 Hottest Topics (From Paper Analysis)</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:24px">
+      <div class="concept amber"><h3>🥇 A* Search</h3><p>f(n)=g(n)+h(n). In nearly every paper. Know formula + example cold.</p></div>
+      <div class="concept"><h3>🥈 Confusion Matrix</h3><p>Precision & Recall calculations. Numerical MCQs guaranteed in every CA.</p></div>
+      <div class="concept green"><h3>🥉 CNN Architecture</h3><p>Conv→Pool→FC. Role of each layer. Match-the-model questions.</p></div>
+      <div class="concept cyan"><h3>4️⃣ BERT vs GPT</h3><p>Bidirectional vs Autoregressive. Training objectives. Use cases.</p></div>
+      <div class="concept amber"><h3>5️⃣ Bayes Theorem</h3><p>Numerical P(S|W) calculation. Feature independence in Naive Bayes.</p></div>
+      <div class="concept"><h3>6️⃣ GAN Components</h3><p>Generator creates samples. Discriminator judges. Tested in Q7 sample paper.</p></div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS PAGE -->
+  <div class="page" id="page-analysis">
+    <div class="section-title">📊 Complete Exam Analysis</div>
+    <div class="concept amber"><h3>📋 Exam Pattern (INT428)</h3><p>60 MCQs × 1 mark = 60 marks. 0.25 negative marking per wrong answer. Time: 3 hours. OMR sheet. All 60 questions compulsory.</p></div>
+    <div class="section-title">🎯 Unit Weightage</div>
+    <table>
+      <tr><th>Unit</th><th>Topic</th><th>Est. MCQs</th><th>Priority</th><th>Probability</th></tr>
+      <tr><td>Unit 1</td><td>Foundations, AI types, Applications, Toolkits</td><td>8–10</td><td><span class="tag imp">HIGH</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:70%"></div></div></td></tr>
+      <tr><td>Unit 2</td><td>Search Algorithms, Heuristics, Game Trees, Logic</td><td>10–12</td><td><span class="tag hot">VERY HIGH</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:88%"></div></div></td></tr>
+      <tr><td>Unit 3</td><td>ML, Bayesian Networks, Confusion Matrix, Clustering</td><td>10–12</td><td><span class="tag hot">VERY HIGH</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:90%"></div></div></td></tr>
+      <tr><td>Unit 4</td><td>Deep Learning, CNN, RNN, Transformers, NLP, BERT/GPT</td><td>12–14</td><td><span class="tag hot">HIGHEST</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:95%"></div></div></td></tr>
+      <tr><td>Unit 5</td><td>GenAI, GANs, LLMs, Prompt Engineering, Ethics</td><td>10–12</td><td><span class="tag imp">HIGH</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:78%"></div></div></td></tr>
+      <tr><td>Unit 6</td><td>Data Tools, ChatGPT ADA, MLOps, Python pandas</td><td>6–8</td><td><span class="tag mcq">MEDIUM</span></td><td><div class="prob-bar"><div class="prob-fill" style="width:55%"></div></div></td></tr>
+    </table>
+    <div class="section-title">🔁 Most Repeated Concepts</div>
+    <div class="top100-grid">
+      <div class="top100-item"><div class="top100-num">🔥1</div><div><b>A* Search:</b> f(n)=g(n)+h(n). Both CA paper and sample paper tested it multiple times.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥2</div><div><b>Confusion Matrix:</b> Precision=TP/(TP+FP), Recall=TP/(TP+FN). Numerical MCQs in every CA.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥3</div><div><b>Bayes Theorem:</b> P(A|B)=P(B|A)P(A)/P(B). Spam filter or medical example most common.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥4</div><div><b>CNN vs RNN vs Transformer:</b> Match-the-model questions appear repeatedly across papers.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥5</div><div><b>GAN Components:</b> Generator generates samples, Discriminator evaluates. Tested in sample paper Q7.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥6</div><div><b>BERT Bidirectional:</b> MLM + NSP training objectives. Reads L↔R simultaneously.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥7</div><div><b>K-Means Clustering:</b> 1-iteration numerical problem guaranteed in every CA paper.</div></div>
+      <div class="top100-item"><div class="top100-num">🔥8</div><div><b>Positional Encoding:</b> Why needed in Transformers — parallel processing loses word order.</div></div>
+    </div>
+    <div class="section-title">⚠️ Top MCQ Traps</div>
+    <div class="trap-box"><strong>TRAP 1: Greedy BFS vs A*</strong>Greedy = h(n) only. A* = g(n)+h(n). A* guarantees optimal if h admissible. Greedy does NOT guarantee optimality.</div>
+    <div class="trap-box"><strong>TRAP 2: Precision vs Recall</strong>Precision = TP/(TP+FP). Recall = TP/(TP+FN). Fraud detection: misses fraud = LOW RECALL, rarely flags normal = HIGH PRECISION.</div>
+    <div class="trap-box"><strong>TRAP 3: BERT vs GPT Direction</strong>BERT = Bidirectional. GPT = Unidirectional (left→right). BERT: understanding tasks. GPT: generation tasks.</div>
+    <div class="trap-box"><strong>TRAP 4: GAN Generator vs Discriminator</strong>Generator CREATES new samples (answer in Q7). Discriminator JUDGES real vs fake. Never confuse these.</div>
+    <div class="trap-box"><strong>TRAP 5: Branching Factor</strong>= Number of states generated FROM a given state. NOT paths to goal, NOT heuristic values, NOT depth.</div>
+    <div class="trap-box"><strong>TRAP 6: AI Foundations</strong>The 6 foundations are Philosophy, Math, Psychology, CS, Neuroscience, Linguistics. Astrology is NOT a foundation (Q27 Sample Paper).</div>
+    <div class="trap-box"><strong>TRAP 7: Vanishing Gradient</strong>Classic RNN problem for LONG sequences. Transformer solves this via self-attention (no sequential processing).</div>
+    <div class="trap-box"><strong>TRAP 8: Alpha value in Alpha-Beta</strong>Alpha = best score for MAXIMIZER. Beta = best score for MINIMIZER. Purpose = reduce nodes in Minimax.</div>
+  </div>
+
+  <!-- UNIT 1 -->
+  <div class="page" id="page-unit1">
+    <div class="section-title">1️⃣ Unit 1 — Foundations & Applications of AI</div>
+    <div class="concept amber"><h3>🧠 What is Intelligence? <span class="tag imp">DEF</span></h3>
+      <p>The ability to: acquire knowledge and skills, solve problems, and adapt to new situations.</p>
+      <p style="margin-top:8px"><b>Key Aspects:</b> Reasoning, Problem-solving, Learning, Perception, Decision-making</p>
+    </div>
+    <div class="concept"><h3>🤖 What is Artificial Intelligence? <span class="tag hot">EXAM DEF</span></h3>
+      <p>Branch of computer science that develops machines to simulate human intelligence. Enables machines to think, learn, and solve complex human problems.</p>
+      <div class="memory-trick">💡 AI = Making machines do what requires human intelligence</div>
+    </div>
+    <div class="concept cyan"><h3>🏛 Foundations of AI <span class="tag hot">MCQ — NOT ASTROLOGY</span></h3>
+      <ul><li><b>Philosophy</b> — Logic and Reasoning</li><li><b>Mathematics</b> — Probability, Statistics, Algorithms</li><li><b>Psychology</b> — Human Behavior</li><li><b>Computer Engineering</b> — Hardware/Software</li><li><b>Neuroscience</b> — Brain Functioning</li><li><b>Linguistics</b> — Language Processing</li></ul>
+      <div class="trap-box"><strong>TRAP (Sample Q27):</strong> Astrology is NOT a foundation of AI. → Correct answer: Astrology is the odd one out.</div>
+    </div>
+    <div class="concept amber"><h3>📌 Types of AI <span class="tag hot">HIGH PROB MCQ</span></h3>
+      <table><tr><th>Type</th><th>Definition</th><th>Example</th><th>Exists?</th></tr>
+      <tr><td>Narrow AI</td><td>Specific task only, predefined boundaries</td><td>Siri, Alexa, Netflix</td><td>✅ Yes</td></tr>
+      <tr><td>General AI</td><td>Any intellectual task a human can do</td><td>Humanoid robot (theoretical)</td><td>❌ Theory</td></tr>
+      <tr><td>Super AI</td><td>Surpasses humans in all domains</td><td>Sci-fi AI</td><td>❌ Theory</td></tr></table>
+    </div>
+    <div class="concept green"><h3>⚙️ Expert Systems <span class="tag imp">DEF MCQ</span></h3>
+      <p>AI that mimics human expertise using a <b>Knowledge Base</b> + <b>Inference Engine</b>. Applies IF-THEN rules.</p>
+      <p><b>Example:</b> MYCIN (Medical Diagnosis). Uses <b>certainty factors</b> for handling uncertainty.</p>
+      <div class="trap-box"><strong>TRAP (Sample Q4):</strong> Certainty factors → Rule-based expert system (NOT Bayesian networks, NOT genetic algorithms).</div>
+    </div>
+    <div class="concept"><h3>🔑 Key AI Problems <span class="tag mcq">LIST</span></h3>
+      <ul><li>Knowledge representation</li><li>Reasoning and inference</li><li>Learning from data</li><li>Perception and understanding</li><li>Natural Language Processing (NLP)</li><li>Planning and decision-making</li><li>Handling uncertainty</li><li>Ethical and social challenges</li></ul>
+    </div>
+    <div class="concept amber"><h3>📱 AI Applications <span class="tag mcq">MATCH TYPE</span></h3>
+      <table><tr><th>Domain</th><th>Example</th></tr>
+      <tr><td>NLP / Voice</td><td>Siri, Alexa, Cortana (Personal Voice Assistants)</td></tr>
+      <tr><td>Computer Vision</td><td>Facial recognition, object detection, self-driving cars</td></tr>
+      <tr><td>Healthcare</td><td>Medical imaging, MYCIN diagnosis system</td></tr>
+      <tr><td>Finance</td><td>Fraud detection, stock prediction</td></tr>
+      <tr><td>Gaming</td><td>Chess AI, game-playing agents</td></tr></table>
+      <div class="trap-box"><strong>TRAP (Sample Q22):</strong> Siri, Alexa, Cortana = Personal voice assistants (NOT machine learning algorithms, NOT web search engines).</div>
+    </div>
+    <div class="concept"><h3>📜 Production Systems <span class="tag hot">DEF Q3 Sample</span></h3>
+      <p>A system of rules for problem-solving. Components: Working Memory + Rule Base (IF-THEN) + Inference Engine.</p>
+      <p><b>Chemical Synthesis:</b> Monotonic and Not Partially Commutative (Sample Q32 → Answer d).</p>
+    </div>
+    <div class="concept green"><h3>🛠 Modern AI Toolkits</h3>
+      <ul><li><b>TensorFlow</b> — Google; static computation graphs; production-ready</li><li><b>PyTorch</b> — Meta (Facebook); dynamic graphs; research-friendly</li><li><b>scikit-learn</b> — Classical ML in Python (SVM, KNN, Decision Trees)</li></ul>
+    </div>
+  </div>
+
+  <!-- UNIT 2 -->
+  <div class="page" id="page-unit2">
+    <div class="section-title">2️⃣ Unit 2 — Problem Solving & Search Algorithms</div>
+    <div class="concept amber"><h3>🗺 State Space & Problem Formulation <span class="tag hot">CORE</span></h3>
+      <p>AI problem = Initial State + Goal State + Actions + Path Cost. A problem in AI is defined by an initial and goal state.</p>
+      <div class="formula-box">Branching factor = number of states generated from a given state
+A* evaluation: f(n) = g(n) + h(n)
+g(n) = actual cost from start → current node
+h(n) = heuristic estimate from current node → goal
+h*(n) = TRUE optimal cost from current node → goal</div>
+      <div class="trap-box"><strong>TRAP (Sample Q11):</strong> Branching factor = number of different states generated FROM a given state. NOT paths to goal, NOT heuristic values, NOT depth.</div>
+      <div class="trap-box"><strong>TRAP (Sample Q60):</strong> A problem in AI = "A task defined by an initial and goal state" → Answer (b).</div>
+    </div>
+    <div class="concept"><h3>📏 Search Performance Measures</h3>
+      <ul><li><b>Completeness</b> — Always finds solution if one exists?</li><li><b>Optimality</b> — Guaranteed to find best solution?</li><li><b>Time Complexity</b> — How many nodes expanded?</li><li><b>Space Complexity</b> — Max nodes in memory?</li></ul>
+    </div>
+    <div class="concept cyan"><h3>🔍 Uninformed Search Comparison <span class="tag hot">TABLE MCQ</span></h3>
+      <table><tr><th>Algorithm</th><th>Strategy</th><th>Complete</th><th>Optimal</th><th>Time</th><th>Space</th><th>Structure</th></tr>
+      <tr><td>BFS</td><td>Level-by-level</td><td>✅ Yes</td><td>✅ Equal cost</td><td>O(b^d)</td><td>O(b^d)</td><td>Queue (FIFO)</td></tr>
+      <tr><td>DFS</td><td>Deepest first</td><td>❌ No</td><td>❌ No</td><td>O(b^m)</td><td>O(bm)</td><td>Stack (LIFO)</td></tr>
+      <tr><td>DLS</td><td>DFS + limit L</td><td>❌ If L&lt;d</td><td>❌ No</td><td>O(b^L)</td><td>O(bL)</td><td>Stack</td></tr>
+      <tr><td>IDS</td><td>DLS + increase L</td><td>✅ Yes</td><td>✅ Yes</td><td>O(b^d)</td><td>O(bd)</td><td>Stack</td></tr></table>
+      <div class="trap-box"><strong>TRAP (Sample Q52):</strong> DFS preferred over BFS when → memory constraints are strict → Answer (b).</div>
+      <div class="trap-box"><strong>TRAP (Sample Q56):</strong> Suitable for infinite state spaces → Iterative Deepening → Answer (c).</div>
+    </div>
+    <div class="concept amber"><h3>🎯 Informed Search <span class="tag hot">MOST TESTED</span></h3>
+      <div class="compare-grid">
+        <div class="compare-col"><h4>Greedy Best-First Search</h4><ul><li>f(n) = h(n) ONLY</li><li>Expands closest-to-goal node</li><li>Fast but NOT optimal</li><li>Can get stuck in loops</li></ul></div>
+        <div class="compare-col"><h4>A* Search</h4><ul><li>f(n) = g(n) + h(n)</li><li>Optimal IF h is admissible</li><li>Complete (finite space)</li><li>Best-first + cost-aware</li></ul></div>
+      </div>
+      <div class="formula-box">A* Example (Sample Paper):
+f(B) = g(B) + h(B) = 9 + 4 = 13
+f(D) = g(D) + h(D) = 8 + 6 = 14
+→ Expand B (lowest f value first)
+
+8-Puzzle (Sample Q33): h(n)=5, g(n)=3 → f(n)=8 ← Answer (a)</div>
+      <div class="trap-box"><strong>KEY (Sample Q14, Q44):</strong> A* considers BOTH cost and heuristic. GBFS considers ONLY heuristic. A* guarantees optimal (admissible h). GBFS does NOT.</div>
+    </div>
+    <div class="concept green"><h3>🔺 Admissibility & Heuristics <span class="tag hot">EXAM KEY</span></h3>
+      <div class="formula-box">Admissible: h(n) ≤ h*(n)  [never overestimates]
+Consistent: h(n) ≤ cost(n,n') + h(n')  [triangle inequality]
+Manhattan distance = |x1-x2| + |y1-y2|  [8-puzzle heuristic]
+
+Sample Q39: h*(n) = Actual cost from node n to the goal → Answer (b)</div>
+    </div>
+    <div class="concept"><h3>🎮 Minimax & Alpha-Beta <span class="tag hot">GAME AI</span></h3>
+      <ul><li><b>Minimax:</b> MAX maximizes evaluation, MIN minimizes. Evaluates ALL game states — complete tree exploration.</li><li><b>Alpha-Beta Pruning:</b> Optimization of Minimax. Skips branches that cannot affect the optimal decision.</li><li><b>Alpha (α):</b> Best possible score for the MAXIMIZER along current path.</li><li><b>Beta (β):</b> Best possible score for the MINIMIZER along current path.</li></ul>
+      <div class="trap-box"><strong>TRAP (Sample Q37, Q53):</strong> Main purpose Alpha-Beta = Reduce nodes evaluated in Minimax. Minimax evaluates ALL states; Alpha-Beta SKIPS unnecessary branches. Alpha-Beta is an OPTIMIZATION, not a replacement.</div>
+    </div>
+    <div class="concept cyan"><h3>⛰ Local Search <span class="tag imp">MCQ</span></h3>
+      <ul><li><b>Hill Climbing:</b> Greedy — always moves to better neighbor. Problem: gets stuck at local maxima.</li><li><b>Random Restart:</b> Restarts from multiple random initial states → escapes local maxima (Sample Q49).</li><li><b>Simulated Annealing:</b> Accepts WORSE solutions with some probability. Why? To escape local minima and explore more solution space (Sample Q40 → Answer b).</li></ul>
+    </div>
+    <div class="concept amber"><h3>💧 Water Jug Problem <span class="tag hot">NUMERICAL</span></h3>
+      <div class="formula-box">Max states formula: (cap1+1) × (cap2+1)
+Example: 4L + 3L jugs = (4+1)×(3+1) = 5×4 = 20 states ← (Sample Q10 Answer d)
+
+Sample Q17: J1=9L, J2=5L, State=(6,2)
+Step 1: Fill J2 → (6, 5)
+Step 2: Pour J2→J1: J1 can take 9-6=3L, pour 3L from J2
+Result: J1=9, J2=5-3=2 → State = (9,2) ← Answer (b)</div>
+    </div>
+    <div class="concept green"><h3>📐 Logic & De Morgan's Law <span class="tag hot">LOGIC MCQ</span></h3>
+      <div class="formula-box">De Morgan's (Sample Q34 → Answer a):  ¬(P∨Q) = (¬P)∧(¬Q)
+                                         ¬(P∧Q) = (¬P)∨(¬Q)
+Implication:       P→Q  ≡  ¬P∨Q
+Biconditional:    P↔Q  ≡  (P→Q)∧(Q→P)
+NOT valid connector (Sample Q54): Aggregation ← Answer (c)</div>
+    </div>
+  </div>
+
+  <!-- UNIT 3 -->
+  <div class="page" id="page-unit3">
+    <div class="section-title">3️⃣ Unit 3 — Machine Learning & Probabilistic Reasoning</div>
+    <div class="concept amber"><h3>📊 ML Types Comparison <span class="tag hot">TABLE MCQ</span></h3>
+      <table><tr><th>Type</th><th>Training Data</th><th>Goal</th><th>Algorithms</th><th>Example</th></tr>
+      <tr><td>Supervised</td><td>Labeled (X, Y)</td><td>Predict output</td><td>SVM, KNN, LR, DT</td><td>Spam filter, image classifier</td></tr>
+      <tr><td>Unsupervised</td><td>Unlabeled (X only)</td><td>Find structure</td><td>K-Means, DBSCAN, PCA</td><td>Customer segmentation</td></tr>
+      <tr><td>Reinforcement</td><td>Rewards/Penalties</td><td>Max reward</td><td>Q-Learning, Policy Gradient</td><td>AlphaGo, game agents</td></tr>
+      <tr><td>Semi-Supervised</td><td>Labeled + Unlabeled</td><td>Both</td><td>Self-training</td><td>Text classification</td></tr></table>
+      <div class="trap-box"><strong>TRAP (Sample Q51):</strong> "Static Learning" is NOT a category of ML — it is the odd one out. Answer: (d) Static Learning.</div>
+    </div>
+    <div class="concept"><h3>🎯 Confusion Matrix <span class="tag hot">NUMERICAL — IN EVERY EXAM</span></h3>
+      <div class="formula-box">Given (CA Paper Q1): TP=40, TN=30, FP=20, FN=10
+
+Recall    = TP / (TP + FN) = 40 / (40+10) = 40/50 = 0.80
+Precision = TP / (TP + FP) = 40 / (40+20) = 40/60 = 0.667
+Accuracy  = (TP + TN) / Total = 70/100 = 0.70
+F1 Score  = 2 × (P × R) / (P + R)
+Specificity = TN / (TN + FP)
+
+Answer CA Q1: Recall=0.80, Precision=0.67 → Option B ✓
+
+CA Q15 (Fraud detection): Misses fraud = LOW RECALL, Rarely flags normal = HIGH PRECISION
+→ Answer: Low recall, high precision → Option (c) ✓</div>
+    </div>
+    <div class="concept cyan"><h3>📐 Standard Deviation <span class="tag hot">NUMERICAL</span></h3>
+      <div class="formula-box">CA Q6: Data = {3, 7, 7, 7, 9}
+Mean μ = (3+7+7+7+9)/5 = 33/5 = 6.6
+Variance = [(3-6.6)²+(7-6.6)²+(7-6.6)²+(7-6.6)²+(9-6.6)²] / 5
+         = [12.96 + 0.16 + 0.16 + 0.16 + 5.76] / 5
+         = 19.2 / 5 = 3.84
+SD = √3.84 ≈ 1.96 ≈ 2  → Answer: A (2) ✓</div>
+    </div>
+    <div class="concept amber"><h3>🎲 Bayes Theorem <span class="tag hot">NUMERICAL MCQ</span></h3>
+      <div class="formula-box">P(A|B) = P(B|A) × P(A) / P(B)
+
+CA Q7: P(S)=0.3, P(H)=0.7, P(W|S)=0.8, P(W|H)=0.2
+P(W) = P(W|S)×P(S) + P(W|H)×P(H) = 0.8×0.3 + 0.2×0.7 = 0.24+0.14 = 0.38
+P(S|W) = P(W|S)×P(S) / P(W) = 0.24 / 0.38 ≈ 0.63  → Answer: B ✓</div>
+    </div>
+    <div class="concept green"><h3>🌐 Bayesian Networks <span class="tag hot">DEF MCQ</span></h3>
+      <p>Directed Acyclic Graph (DAG) representing probabilistic relationships among variables. Joint probability = Product of conditional probabilities.</p>
+      <div class="trap-box"><strong>TRAP (Sample Q1):</strong> Bayesian networks incorporate UNCERTAINTY; rule-based systems rely on deterministic logic. → Answer: (b).</div>
+      <div class="trap-box"><strong>TRAP (CA Q4):</strong> Joint probability in Bayesian networks = Product of conditional probabilities (NOT sum, difference, or average). → Answer: (b).</div>
+    </div>
+    <div class="concept"><h3>🏷 Naive Bayes <span class="tag hot">KEY ASSUMPTION</span></h3>
+      <p><b>Key Assumption:</b> All features are INDEPENDENT given the class label. This is the "naive" assumption.</p>
+      <div class="trap-box"><strong>TRAP (Sample Q16):</strong> Naive Bayes assumption = "All features are independent given the class" → Answer: (d). NOT correlated, NOT equal priors.</div>
+    </div>
+    <div class="concept cyan"><h3>📍 KNN — K-Nearest Neighbors <span class="tag hot">NUMERICAL</span></h3>
+      <div class="formula-box">CA Q3: K=3, Points A(1,1)→Red, B(2,2)→Red, C(4,4)→Blue, Classify P(3,3)
+d(P,A) = √[(3-1)²+(3-1)²] = √8 ≈ 2.83
+d(P,B) = √[(3-2)²+(3-2)²] = √2 ≈ 1.41  ← nearest
+d(P,C) = √[(3-4)²+(3-4)²] = √2 ≈ 1.41  ← nearest
+3 nearest: B(Red), C(Blue), A(Red) → 2 Red, 1 Blue → P = Red → Answer: A ✓</div>
+    </div>
+    <div class="concept amber"><h3>📦 K-Means Clustering <span class="tag hot">NUMERICAL EVERY CA</span></h3>
+      <p>Steps: (1) Choose K centroids. (2) Assign each point to nearest centroid. (3) Update centroids = mean of cluster. (4) Repeat.</p>
+      <div class="formula-box">CA Part B Q1: k=2, Points A(2,2),B(3,3),C(4,4),D(6,5),E(9,1)
+Initial Centroids: C1=(2,2), C2=(9,1)
+Distances (Euclidean):
+  A(2,2): d(C1)=0, d(C2)=√50=7.07 → Cluster1
+  B(3,3): d(C1)=√2=1.41, d(C2)=√37=6.08 → Cluster1
+  C(4,4): d(C1)=√8=2.83, d(C2)=√26=5.10 → Cluster1
+  D(6,5): d(C1)=5, d(C2)=√17=4.12 → Cluster2
+  E(9,1): d(C1)=√50=7.07, d(C2)=0 → Cluster2
+New C1 = ((2+3+4)/3, (2+3+4)/3) = (3, 3)
+New C2 = ((6+9)/2, (5+1)/2) = (7.5, 3)</div>
+    </div>
+    <div class="concept green"><h3>✂️ Cross-Validation & Overfitting <span class="tag imp">MCQ</span></h3>
+      <p><b>Cross-Validation:</b> Used to REDUCE OVERFITTING (CA Q8 → Answer a). Splits data into k folds.</p>
+      <p><b>Overfitting (CA Q9):</b> Good training performance + poor test performance → "Overfitting problem" → Answer (b).</p>
+      <p><b>Best Model (CA Q10):</b> Low bias + Low variance → Answer (c).</p>
+    </div>
+    <div class="concept"><h3>🎓 Reinforcement Learning — MDP <span class="tag imp">DEF</span></h3>
+      <ul><li><b>States (S)</b> — all possible situations the agent can be in</li><li><b>Actions (A)</b> — possible actions at each state</li><li><b>Transition Probability P(s'|s,a)</b> — probability of reaching next state</li><li><b>Reward Function R(s,a)</b> — immediate reward signal</li><li><b>Discount Factor γ</b> — 0 to 1; γ≈1 = future important; γ≈0 = immediate rewards only</li></ul>
+    </div>
+  </div>
+
+  <!-- UNIT 4 -->
+  <div class="page" id="page-unit4">
+    <div class="section-title">4️⃣ Unit 4 — Deep Learning & Natural Language Processing</div>
+    <div class="concept"><h3>🧠 Neural Network Basics</h3>
+      <p>Inspired by the human brain. <b>Perceptron:</b> Simplest ANN — single neuron, binary classification, LINEAR classifier (draws one straight line).</p>
+      <div class="formula-box">Perceptron output = activation(Σ wᵢxᵢ + b)
+Weight update rule: w = w - η·x  (η = learning rate)
+Limitation: Can't solve non-linear problems (XOR needs MLP)</div>
+      <p><b>MLP (Multi-Layer Perceptron):</b> Multiple hidden layers. Solves non-linear problems. Universal Function Approximator. Hidden layers = feature extractors.</p>
+    </div>
+    <div class="concept amber"><h3>🖼 CNN — Convolutional Neural Network <span class="tag hot">MOST TESTED</span></h3>
+      <p>Designed for grid-like data (images). Preserves spatial relationships between pixels.</p>
+      <p><b>Architecture:</b> Input → [Conv → ReLU → Pool] × N → Flatten → FC → Softmax → Output</p>
+      <ul><li><b>Convolution Layer:</b> Applies kernels/filters to detect features. Produces feature maps. Kernel slides with stride.</li><li><b>Pooling Layer:</b> Reduces spatial dimensions. <b>Max Pooling:</b> Keeps largest value in each window. Goal: keep important features, reduce computation.</li><li><b>Fully Connected (FC) Layer:</b> Converts features to probability outputs for final classification.</li></ul>
+      <div class="trap-box"><strong>TRAP (CA Q2):</strong> Best for image classification = CNN (spatial features). NOT RNN or Transformer or Bayesian.</div>
+      <div class="trap-box"><strong>TRAP (CA Q14):</strong> Role of Pooling = Reduce spatial dimensions of feature maps. NOT increase filters, NOT convert to probabilities alone.</div>
+    </div>
+    <div class="concept cyan"><h3>🔄 RNN — Recurrent Neural Network <span class="tag hot">COMPARE MCQ</span></h3>
+      <p>Handles sequential/time-series data. Has a LOOP — output of step t becomes input of step t+1. Hidden state h_t holds memory.</p>
+      <div class="formula-box">h_t = tanh(W_x·X_t + W_h·h_{t-1} + b)
+New Memory = Activation(New Input + Previous Memory)
+Applications: Text, Speech, Stock Prices, Time Series</div>
+      <div class="trap-box"><strong>TRAP (CA Q11):</strong> Common RNN problem = Vanishing gradient during LONG sequences. NOT lack of activation functions, NOT spatial resolution issues.</div>
+    </div>
+    <div class="concept green"><h3>⚡ Transformer Architecture <span class="tag hot">HIGH YIELD</span></h3>
+      <p>Google Brain 2017. Solves RNN's sequential bottleneck. Reads entire sequence AT ONCE (parallel).</p>
+      <div class="formula-box">Self-Attention: Q=Query (What I'm looking for?)
+               K=Key   (What I can offer?)
+               V=Value (Actual content)
+Attention(Q,K,V) = softmax(QK^T / √d_k) × V
+
+Positional Encoding: Sine/Cosine waves → adds word order info
+Why needed? Parallel processing → loses word order → must add it back
+CA Q12: Why positional encoding? → Provide ordered sequence data → Answer (a) ✓</div>
+      <p><b>Encoder:</b> Positional Encoding → Multi-Head Attention → Add&Norm → FFN → Rich vector representation.</p>
+      <p><b>Decoder:</b> Masked Attention (can't see future words) → Cross-Attention (looks at Encoder output) → Generate output.</p>
+      <p><b>Multi-Head Attention:</b> Multiple attention mechanisms in parallel — one head focuses grammar, another vocabulary, another context.</p>
+    </div>
+    <div class="concept amber"><h3>🤖 BERT vs GPT <span class="tag hot">COMPARISON — EXAM FAVOURITE</span></h3>
+      <table><tr><th>Feature</th><th>BERT</th><th>GPT</th></tr>
+      <tr><td>Direction</td><td>Bidirectional (L ↔ R)</td><td>Unidirectional (L → R only)</td></tr>
+      <tr><td>Architecture</td><td>Encoder-only</td><td>Decoder-only</td></tr>
+      <tr><td>Training Task</td><td>MLM (mask 15%) + NSP</td><td>Autoregressive (predict next token)</td></tr>
+      <tr><td>Best Use</td><td>Understanding: QA, Classification, NER, Sentiment</td><td>Generation: Text, Code, Dialogue, Summarization</td></tr>
+      <tr><td>Context Window</td><td>Sees past AND future simultaneously</td><td>Sees only past tokens (future masked)</td></tr></table>
+      <div class="trap-box"><strong>TRAP:</strong> BERT reads L↔R simultaneously. GPT reads L→R only. GPT GENERATES new text; search engines RETRIEVE existing pages (Sample Q43 → Answer a).</div>
+    </div>
+    <div class="concept"><h3>🗣 NLP Core Concepts <span class="tag hot">PHASES MCQ</span></h3>
+      <div class="formula-box">NLP Pipeline for Chatbot (Sample Q31 → Answer c):
+Speech Recognition → Text Preprocessing → Intent Recognition → Response Generation
+
+Ambiguity types:
+- Syntactic: "I saw the man with the telescope" (structural)
+- Semantic: "Bank" = river bank OR financial bank (word meaning)</div>
+      <p><b>Tokenization:</b> Splitting text into tokens (words, subwords, characters).</p>
+      <p><b>Embedding:</b> Dense vector representation in continuous high-dimensional space. Captures semantic similarity.</p>
+      <p><b>Attention:</b> Model focuses on most relevant input parts dynamically. Solves fixed-length bottleneck of Seq2Seq models.</p>
+    </div>
+    <div class="concept cyan"><h3>🤝 Chatbots <span class="tag imp">MCQ</span></h3>
+      <div class="compare-grid">
+        <div class="compare-col"><h4>Rule-Based Chatbots</h4><ul><li>Predefined scripts</li><li>Keyword matching</li><li>Fixed responses</li><li>Limited flexibility</li></ul></div>
+        <div class="compare-col"><h4>AI-Based Chatbots</h4><ul><li>ML-powered NLP</li><li>Understands context</li><li>Improves over time</li><li>Example: ChatGPT</li></ul></div>
+      </div>
+      <p><b>NLU:</b> Extracts intent + entities from user input ("Book flight to Delhi Friday" → intent: book, entities: Delhi, Friday).</p>
+      <p><b>NLG:</b> Converts structured data to human-like response.</p>
+      <p><b>NER in Voice Assistants (Sample Q38):</b> Use NLP techniques like NER and Sentiment Analysis to improve Alexa/Siri. → Answer (b).</p>
+      <div class="trap-box"><strong>NLP for spell checking (Sample Q48):</strong> Edit Distance → Answer (a). NOT TF-IDF, NOT Tokenization.</div>
+    </div>
+  </div>
+
+  <!-- UNIT 5 -->
+  <div class="page" id="page-unit5">
+    <div class="section-title">5️⃣ Unit 5 — Generative AI & Prompt Engineering <span class="inferred-badge">★ Inferred from syllabus + sample papers</span></div>
+    <div class="concept amber"><h3>🎨 Generative AI — Definition <span class="tag hot">KEY MCQ</span></h3>
+      <p>AI that creates NEW content (text, images, audio, video, code) by detecting patterns in training data.</p>
+      <div class="trap-box"><strong>KEY (Sample Q19):</strong> GenAI CREATES new data; Traditional AI ANALYZES existing data → Answer (b).</div>
+      <div class="trap-box"><strong>KEY (Sample Q45):</strong> GenAI "learns" to create → By detecting patterns in training data (NOT memorizing past data) → Answer (b).</div>
+    </div>
+    <div class="concept"><h3>🔀 GANs — Generative Adversarial Networks <span class="tag hot">ARCHITECTURE MCQ</span></h3>
+      <div class="compare-grid">
+        <div class="compare-col"><h4>Generator</h4><ul><li>Creates synthetic/fake data</li><li>Input: random noise vector z</li><li>Goal: fool the Discriminator</li><li>GENERATES new samples</li></ul></div>
+        <div class="compare-col"><h4>Discriminator</h4><ul><li>Judges real vs fake</li><li>Binary classifier</li><li>Feedback to Generator</li><li>Output: probability real/fake</li></ul></div>
+      </div>
+      <div class="trap-box"><strong>TRAP (Sample Q7):</strong> Component generating NEW samples = Generator (NOT Encoder, Discriminator, or Decoder) → Answer: (d) Generator.</div>
+      <div class="formula-box">Training: Generator improves until Discriminator can't distinguish real from fake.
+Applications: Image generation, deepfakes, data augmentation, art creation</div>
+    </div>
+    <div class="concept cyan"><h3>📊 VAE — Variational Autoencoders <span class="tag hot">Sample Q41</span></h3>
+      <p>Generate new data by learning a probabilistic latent space. Encoder maps to distribution (μ, σ²). Sample z. Decoder reconstructs.</p>
+      <p><b>Primary Purpose (Sample Q41):</b> Generate new data by learning a probabilistic latent space → Answer: (b).</p>
+      <div class="formula-box">VAE Loss = Reconstruction Loss + KL Divergence
+KL Divergence: forces latent space toward N(0,1) → enables random sampling</div>
+    </div>
+    <div class="concept green"><h3>🔤 Large Language Models (LLMs) <span class="tag hot">MODERN AI</span></h3>
+      <p>Transformer-based models trained on massive text corpora. Demonstrate emergent abilities at scale.</p>
+      <p><b>PaLM vs smaller models (Sample Q46):</b> PaLM has more parameters → understands complex queries better → Answer (c).</p>
+      <p><b>Emergent abilities:</b> Zero-shot translation, code writing, chain-of-thought reasoning — not explicitly trained for these tasks.</p>
+    </div>
+    <div class="concept amber"><h3>💬 Prompt Engineering <span class="tag hot">DEFINITIONS</span></h3>
+      <p><b>What is a Prompt? (Sample Q30):</b> An input given to a language model → Answer (b).</p>
+      <p><b>Best strategy to refine AI responses (Sample Q2):</b> Rewriting and iterating prompts → Answer (a).</p>
+      <table><tr><th>Pattern</th><th>Description</th><th>Example</th></tr>
+      <tr><td>Instruction-based</td><td>Direct command</td><td>"Translate this to French:"</td></tr>
+      <tr><td>Chain-of-Thought</td><td>Step-by-step reasoning</td><td>"Solve step by step..."</td></tr>
+      <tr><td>Few-shot</td><td>Examples provided first</td><td>"Here are 3 examples. Now:"</td></tr>
+      <tr><td>Role-based</td><td>Assign persona</td><td>"You are a doctor..."</td></tr>
+      <tr><td>Zero-shot</td><td>No examples given</td><td>"Classify this text:"</td></tr></table>
+      <div class="trap-box"><strong>TRAP (Sample Q58):</strong> All three — instruction-based, chain-of-thought, few-shot — ARE prompt patterns → Answer (d) All of the above.</div>
+    </div>
+    <div class="concept"><h3>🧭 Zero-Shot vs Few-Shot Learning <span class="tag hot">TRICKY MCQ</span></h3>
+      <div class="trap-box"><strong>TRAP (Sample Q13):</strong> Zero-shot = Predict UNSEEN tasks directly (no task-specific training). NOT train only on labeled data. NOT ignore new input. NOT evaluate only known classes → Answer (c).</div>
+      <p><b>Few-shot:</b> Learn from a small number of examples (1-shot, 5-shot). Model generalizes from few demonstrations.</p>
+    </div>
+    <div class="concept cyan"><h3>🎭 Diffusion Models <span class="tag imp">MODERN</span></h3>
+      <p>Generate content by reversing a noise process. Forward: add noise step by step. Reverse: denoise to generate.</p>
+      <p><b>Examples:</b> DALL-E, Stable Diffusion, Midjourney, Sora (video).</p>
+      <div class="formula-box">Forward process: x_0 → x_1 → ... → x_T (pure Gaussian noise)
+Reverse process: x_T → x_{T-1} → ... → x_0 (generated image/content)
+Model learns: how to remove noise at each step</div>
+    </div>
+    <div class="concept green"><h3>⚖️ AI Ethics & Responsible AI <span class="tag imp">CO5</span></h3>
+      <ul><li><b>Bias:</b> Models inherit biases from training data (gender, racial bias)</li><li><b>Fairness:</b> Equal treatment across demographic groups</li><li><b>Transparency/Explainability (XAI):</b> Understanding why AI makes decisions</li><li><b>Privacy:</b> User data protection; not using training data without consent</li><li><b>Accountability:</b> Humans remain responsible for AI decisions</li><li><b>Hallucination:</b> LLMs confidently generate false information</li></ul>
+    </div>
+  </div>
+
+  <!-- UNIT 6 -->
+  <div class="page" id="page-unit6">
+    <div class="section-title">6️⃣ Unit 6 — Data Analysis, Tools & MLOps <span class="inferred-badge">★ Inferred from syllabus + sample papers</span></div>
+    <div class="concept amber"><h3>🧪 ChatGPT ADA (Advanced Data Analysis) <span class="tag hot">TOOLS MCQ</span></h3>
+      <p><b>Key difference (Sample Q50 → Answer c):</b> ADA can analyze datasets and run Python code; standard ChatGPT cannot.</p>
+      <p><b>Error identification in ADA (Sample Q18 → Answer a):</b> Using data validation methods to identify discrepancies or unusual patterns in input data.</p>
+      <p><b>Without error handling (Sample Q55 → Answer d):</b> Output might include incorrect or incomplete data.</p>
+      <p><b>Media files in ADA (Sample Q35 → Answer a):</b> Extract text and metadata using AI models.</p>
+    </div>
+    <div class="concept"><h3>📊 Data Visualization <span class="tag imp">MCQ</span></h3>
+      <p><b>Categorical data (Sample Q12 → Answer c):</b> Bar chart.</p>
+      <table><tr><th>Data Type</th><th>Best Chart</th></tr>
+      <tr><td>Categorical</td><td>Bar chart, Pie chart</td></tr>
+      <tr><td>Distribution</td><td>Histogram</td></tr>
+      <tr><td>Two-variable relationship</td><td>Scatter plot</td></tr>
+      <tr><td>Correlation matrix</td><td>Heatmap</td></tr>
+      <tr><td>Time series / Trend</td><td>Line chart</td></tr></table>
+    </div>
+    <div class="concept cyan"><h3>🐍 Python Pandas Quick Reference <span class="tag imp">CODE MCQ</span></h3>
+      <div class="formula-box">Duplicate rows    → df.drop_duplicates()   (Sample Q21 → Answer d)
+Missing values   → df.fillna(value)
+Preview data     → df.head()
+Count non-null   → df.count()
+
+ZeroDivisionError → dividing by zero  (Sample Q15 → Answer b)
+ValueError → wrong type/value
+NameError → undefined variable
+IndexError → index out of range</div>
+      <p><b>AI writing assistant (Sample Q23 → Answer b):</b> Grammarly.</p>
+      <p><b>Marketing/Social Media AI (Sample Q59 → Answer d):</b> ChatGPT.</p>
+    </div>
+    <div class="concept green"><h3>☁️ Cloud AI & MLOps <span class="tag mcq">DEF</span></h3>
+      <ul><li><b>MLOps:</b> ML + DevOps — automates training, deployment, monitoring of ML models</li><li><b>Cloud Services:</b> AWS SageMaker, GCP Vertex AI, Azure ML — for scalable training/hosting</li><li><b>Edge Deployment:</b> Run models on local devices (low latency, offline capable)</li><li><b>CI/CD Pipelines:</b> Continuous integration/delivery for ML workflows</li><li><b>Model Monitoring:</b> Track accuracy drift, data drift over time in production</li></ul>
+    </div>
+    <div class="concept amber"><h3>📋 Knowledge Representation & Reasoning <span class="tag imp">MCQ</span></h3>
+      <p><b>Knowledge Representation approaches (Sample Q26 → Answer a):</b> Frames, Semantic Networks, Logical Representation. Neural networks are NOT a KR approach.</p>
+      <p><b>Odd one out (Sample Q25 → Answer a):</b> Heuristic Search is NOT a knowledge representation technique.</p>
+      <p><b>Backward chaining advantage (Sample Q42 → Answer b):</b> It is goal-driven (starts from goal, works backward to find supporting facts).</p>
+      <p><b>Dempster-Shafer (Sample Q47 → Answer a):</b> Belief functions = degree of confidence in a hypothesis.</p>
+    </div>
+  </div>
+
+  <!-- CHEAT SHEET -->
+  <div class="page" id="page-cheatsheet">
+    <div class="section-title">📋 Cheat Sheets</div>
+    <div class="cheat-grid">
+      <div class="cheat-card"><h3>🔍 Search Algorithms</h3>
+        <div class="cheat-item"><span class="cheat-key">BFS</span><span class="cheat-val">Queue, Level-by-level, O(b^d), Complete, Optimal (equal cost)</span></div>
+        <div class="cheat-item"><span class="cheat-key">DFS</span><span class="cheat-val">Stack, Depth-first, O(b^m), Incomplete, Not Optimal</span></div>
+        <div class="cheat-item"><span class="cheat-key">IDS</span><span class="cheat-val">DLS+increasing L, Complete, Optimal, O(b^d), O(bd) space</span></div>
+        <div class="cheat-item"><span class="cheat-key">Greedy</span><span class="cheat-val">f(n)=h(n) only, Fast, NOT Optimal</span></div>
+        <div class="cheat-item"><span class="cheat-key">A*</span><span class="cheat-val">f(n)=g(n)+h(n), Complete, Optimal (admissible h)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Minimax</span><span class="cheat-val">MAX maximizes, MIN minimizes, evaluates ALL states</span></div>
+        <div class="cheat-item"><span class="cheat-key">Alpha-Beta</span><span class="cheat-val">Prunes Minimax, α=best MAX, β=best MIN</span></div>
+        <div class="cheat-item"><span class="cheat-key">Sim. Anneal.</span><span class="cheat-val">Accepts worse solutions to escape local minima</span></div>
+      </div>
+      <div class="cheat-card"><h3>📊 ML Metrics</h3>
+        <div class="cheat-item"><span class="cheat-key">Precision</span><span class="cheat-val">TP/(TP+FP) — of predicted +ve, how many correct?</span></div>
+        <div class="cheat-item"><span class="cheat-key">Recall</span><span class="cheat-val">TP/(TP+FN) — of actual +ve, how many caught?</span></div>
+        <div class="cheat-item"><span class="cheat-key">Accuracy</span><span class="cheat-val">(TP+TN)/(TP+TN+FP+FN)</span></div>
+        <div class="cheat-item"><span class="cheat-key">F1 Score</span><span class="cheat-val">2×P×R/(P+R) — harmonic mean</span></div>
+        <div class="cheat-item"><span class="cheat-key">Low Recall</span><span class="cheat-val">Misses many positives (high FN)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Low Precision</span><span class="cheat-val">Many false alarms (high FP)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Best Model</span><span class="cheat-val">Low bias + Low variance</span></div>
+        <div class="cheat-item"><span class="cheat-key">Cross-val</span><span class="cheat-val">Used to REDUCE OVERFITTING</span></div>
+      </div>
+      <div class="cheat-card"><h3>🤖 Neural Networks</h3>
+        <div class="cheat-item"><span class="cheat-key">Perceptron</span><span class="cheat-val">Single neuron, linear classifier, binary output</span></div>
+        <div class="cheat-item"><span class="cheat-key">MLP</span><span class="cheat-val">Hidden layers, solves XOR, Universal Approx.</span></div>
+        <div class="cheat-item"><span class="cheat-key">CNN</span><span class="cheat-val">Images, spatial features, Conv+Pool+FC</span></div>
+        <div class="cheat-item"><span class="cheat-key">RNN</span><span class="cheat-val">Sequences, hidden state h_t, vanishing gradient</span></div>
+        <div class="cheat-item"><span class="cheat-key">LSTM</span><span class="cheat-val">Solves vanishing gradient, forget/input/output gates</span></div>
+        <div class="cheat-item"><span class="cheat-key">Transformer</span><span class="cheat-val">Parallel, self-attention (Q,K,V), positional enc.</span></div>
+        <div class="cheat-item"><span class="cheat-key">BERT</span><span class="cheat-val">Bidirectional, MLM+NSP, understanding tasks</span></div>
+        <div class="cheat-item"><span class="cheat-key">GPT</span><span class="cheat-val">Autoregressive, next-token pred., generation tasks</span></div>
+      </div>
+      <div class="cheat-card"><h3>🎨 Generative AI</h3>
+        <div class="cheat-item"><span class="cheat-key">GAN</span><span class="cheat-val">Generator (creates) + Discriminator (judges)</span></div>
+        <div class="cheat-item"><span class="cheat-key">VAE</span><span class="cheat-val">Encoder→latent distribution→Decoder, probabilistic</span></div>
+        <div class="cheat-item"><span class="cheat-key">Diffusion</span><span class="cheat-val">Add noise (forward) → Remove noise (reverse)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Zero-shot</span><span class="cheat-val">Predict UNSEEN tasks without specific training</span></div>
+        <div class="cheat-item"><span class="cheat-key">Few-shot</span><span class="cheat-val">Learn from small number of examples</span></div>
+        <div class="cheat-item"><span class="cheat-key">Prompt</span><span class="cheat-val">Input given to a language model</span></div>
+        <div class="cheat-item"><span class="cheat-key">CoT</span><span class="cheat-val">Chain-of-thought: step-by-step reasoning</span></div>
+        <div class="cheat-item"><span class="cheat-key">LLM Scaling</span><span class="cheat-val">More params + more data → emergent abilities</span></div>
+      </div>
+      <div class="cheat-card"><h3>🧮 Probability & Logic</h3>
+        <div class="cheat-item"><span class="cheat-key">Bayes</span><span class="cheat-val">P(A|B) = P(B|A)·P(A) / P(B)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Joint P</span><span class="cheat-val">Product of conditional probabilities (Bayesian nets)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Naive Bayes</span><span class="cheat-val">Features INDEPENDENT given class</span></div>
+        <div class="cheat-item"><span class="cheat-key">Bayesian Net</span><span class="cheat-val">DAG, probabilistic relationships, uncertainty</span></div>
+        <div class="cheat-item"><span class="cheat-key">De Morgan</span><span class="cheat-val">¬(P∨Q)=(¬P)∧(¬Q)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Implication</span><span class="cheat-val">P→Q ≡ ¬P∨Q</span></div>
+        <div class="cheat-item"><span class="cheat-key">D-S Theory</span><span class="cheat-val">Belief = degree of confidence in hypothesis</span></div>
+      </div>
+      <div class="cheat-card"><h3>💻 Python/Tools</h3>
+        <div class="cheat-item"><span class="cheat-key">Drop dupes</span><span class="cheat-val">df.drop_duplicates()</span></div>
+        <div class="cheat-item"><span class="cheat-key">Fill NA</span><span class="cheat-val">df.fillna(value)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Div by zero</span><span class="cheat-val">ZeroDivisionError (NOT ValueError)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Categorical</span><span class="cheat-val">Bar chart visualization</span></div>
+        <div class="cheat-item"><span class="cheat-key">NLP spellcheck</span><span class="cheat-val">Edit Distance (NOT TF-IDF)</span></div>
+        <div class="cheat-item"><span class="cheat-key">Writing AI</span><span class="cheat-val">Grammarly</span></div>
+        <div class="cheat-item"><span class="cheat-key">Marketing AI</span><span class="cheat-val">ChatGPT</span></div>
+        <div class="cheat-item"><span class="cheat-key">ADA</span><span class="cheat-val">ChatGPT ADA can run Python code on datasets</span></div>
+      </div>
+    </div>
+    <div class="section-title">🌙 One-Night-Before Exam — 20 Must-Know Points</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;font-size:.82rem;line-height:2.2">
+      <p>1. AI foundations: Philosophy, Math, Psychology, CS, Neuroscience, Linguistics — <b>NOT Astrology</b></p>
+      <p>2. Narrow AI=Siri/Alexa (EXISTS). General AI=theoretical. Super AI=theoretical.</p>
+      <p>3. BFS=Queue/Complete/Optimal | DFS=Stack/Incomplete/Not Optimal | A*=g(n)+h(n)/Optimal</p>
+      <p>4. Greedy BFS uses ONLY h(n). A* uses g(n)+h(n). A* is optimal (admissible h). Greedy is NOT.</p>
+      <p>5. Alpha-Beta goal = Reduce nodes in Minimax. α=best MAX score. β=best MIN score.</p>
+      <p>6. Branching factor = states generated FROM a given state (NOT paths to goal).</p>
+      <p>7. Precision=TP/(TP+FP) | Recall=TP/(TP+FN) | f(n)=g(n)+h(n) for A*</p>
+      <p>8. Naive Bayes assumption = features INDEPENDENT given class (NOT correlated).</p>
+      <p>9. Cross-validation = REDUCE OVERFITTING. Overfitting = good train, bad test performance.</p>
+      <p>10. CNN=images/spatial features. RNN=sequences/memory h_t. Transformer=parallel/attention.</p>
+      <p>11. RNN problem = Vanishing gradient during long sequences.</p>
+      <p>12. Positional encoding = needed because Transformer reads ALL at once (loses word order).</p>
+      <p>13. BERT=Bidirectional/MLM+NSP/Encoder-only. GPT=Autoregressive/Next-token/Decoder-only.</p>
+      <p>14. GAN: Generator GENERATES samples. Discriminator judges real/fake. Don't confuse!</p>
+      <p>15. VAE primary purpose = generate new data via probabilistic latent space.</p>
+      <p>16. Zero-shot = predict UNSEEN tasks directly. Few-shot = learn from few examples.</p>
+      <p>17. Prompt = input to language model. All 3 patterns (instruction, CoT, few-shot) are valid.</p>
+      <p>18. NLP chatbot pipeline: Speech Recog → Text Preprocessing → Intent Recog → Response Gen.</p>
+      <p>19. ChatGPT ADA can analyze datasets + run Python; standard ChatGPT cannot.</p>
+      <p>20. De Morgan: ¬(P∨Q)=(¬P)∧(¬Q). NOT a logical connector: Aggregation.</p>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="page" id="page-formulas">
+    <div class="section-title">🔢 Complete Formula & Definition Sheet</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px">
+      <div class="formula-row"><div class="formula-name">A* f(n)</div><div class="formula-expr">f(n) = g(n) + h(n)</div></div>
+      <div class="formula-row"><div class="formula-name">Admissible h</div><div class="formula-expr">h(n) ≤ h*(n) [never overestimates]</div></div>
+      <div class="formula-row"><div class="formula-name">Manhattan Dist</div><div class="formula-expr">|x1-x2| + |y1-y2|</div></div>
+      <div class="formula-row"><div class="formula-name">Euclidean Dist</div><div class="formula-expr">√((x1-x2)² + (y1-y2)²)</div></div>
+      <div class="formula-row"><div class="formula-name">Precision</div><div class="formula-expr">TP / (TP + FP)</div></div>
+      <div class="formula-row"><div class="formula-name">Recall</div><div class="formula-expr">TP / (TP + FN)</div></div>
+      <div class="formula-row"><div class="formula-name">Accuracy</div><div class="formula-expr">(TP + TN) / (TP + TN + FP + FN)</div></div>
+      <div class="formula-row"><div class="formula-name">F1 Score</div><div class="formula-expr">2 × (P × R) / (P + R)</div></div>
+      <div class="formula-row"><div class="formula-name">Bayes Theorem</div><div class="formula-expr">P(A|B) = P(B|A)×P(A) / P(B)</div></div>
+      <div class="formula-row"><div class="formula-name">Total Probability</div><div class="formula-expr">P(B) = Σ P(B|Aᵢ)×P(Aᵢ)</div></div>
+      <div class="formula-row"><div class="formula-name">Mean (μ)</div><div class="formula-expr">μ = Σxᵢ / N</div></div>
+      <div class="formula-row"><div class="formula-name">Variance</div><div class="formula-expr">σ² = Σ(xᵢ - μ)² / N</div></div>
+      <div class="formula-row"><div class="formula-name">Std Deviation</div><div class="formula-expr">σ = √(Σ(xᵢ-μ)² / N)</div></div>
+      <div class="formula-row"><div class="formula-name">BFS Time+Space</div><div class="formula-expr">O(b^d) where b=branching factor, d=depth</div></div>
+      <div class="formula-row"><div class="formula-name">DFS Time</div><div class="formula-expr">O(b^m) where m=max depth</div></div>
+      <div class="formula-row"><div class="formula-name">DFS Space</div><div class="formula-expr">O(b×m)</div></div>
+      <div class="formula-row"><div class="formula-name">Water Jug States</div><div class="formula-expr">(cap1 + 1) × (cap2 + 1)</div></div>
+      <div class="formula-row"><div class="formula-name">Perceptron</div><div class="formula-expr">output = activation(Σwᵢxᵢ + b)</div></div>
+      <div class="formula-row"><div class="formula-name">Weight Update</div><div class="formula-expr">w = w - η·x (η = learning rate)</div></div>
+      <div class="formula-row"><div class="formula-name">RNN Hidden State</div><div class="formula-expr">h_t = tanh(W_x·X_t + W_h·h_{t-1} + b)</div></div>
+      <div class="formula-row"><div class="formula-name">Self-Attention</div><div class="formula-expr">Attention(Q,K,V) = softmax(QK^T/√d_k)·V</div></div>
+      <div class="formula-row"><div class="formula-name">Positional Enc.</div><div class="formula-expr">PE(pos,2i) = sin(pos/10000^(2i/d_model))</div></div>
+      <div class="formula-row"><div class="formula-name">De Morgan 1</div><div class="formula-expr">¬(P∨Q) = (¬P)∧(¬Q)</div></div>
+      <div class="formula-row"><div class="formula-name">De Morgan 2</div><div class="formula-expr">¬(P∧Q) = (¬P)∨(¬Q)</div></div>
+      <div class="formula-row"><div class="formula-name">Implication</div><div class="formula-expr">P→Q ≡ ¬P∨Q</div></div>
+      <div class="formula-row"><div class="formula-name">Biconditional</div><div class="formula-expr">P↔Q ≡ (P→Q)∧(Q→P)</div></div>
+      <div class="formula-row"><div class="formula-name">K-Means Centroid</div><div class="formula-expr">New centroid = mean of all points in cluster</div></div>
+      <div class="formula-row"><div class="formula-name">RL Bellman Eq.</div><div class="formula-expr">V(s) = R + γ × max_a V(s')</div></div>
+      <div class="formula-row"><div class="formula-name">Discount γ≈1</div><div class="formula-expr">Future rewards are important</div></div>
+      <div class="formula-row"><div class="formula-name">Discount γ≈0</div><div class="formula-expr">Only immediate rewards matter</div></div>
+    </div>
+  </div>
+
+  <!-- TOP 100 -->
+  <div class="page" id="page-top100">
+    <div class="section-title">🏆 Top 100 Most Important Points</div>
+    <div class="top100-grid" id="top100Container"></div>
+  </div>
+
+  <!-- COMPARISON TABLES -->
+  <div class="page" id="page-compare">
+    <div class="section-title">⚖️ Master Comparison Tables</div>
+    <div class="section-title" style="font-size:1rem;margin-top:10px">CNN vs RNN vs Transformer</div>
+    <table><tr><th>Feature</th><th>CNN</th><th>RNN</th><th>Transformer</th></tr>
+    <tr><td>Best for</td><td>Images, Grid data</td><td>Sequences, Time series, Text</td><td>NLP, Any sequence</td></tr>
+    <tr><td>Processing</td><td>Parallel (spatial)</td><td>Sequential (one step at a time)</td><td>Fully Parallel</td></tr>
+    <tr><td>Memory</td><td>No temporal memory</td><td>Hidden state h_t</td><td>Self-attention (global context)</td></tr>
+    <tr><td>Key Layer</td><td>Conv + Pooling</td><td>Recurrent connection</td><td>Multi-Head Attention</td></tr>
+    <tr><td>Vanishing Grad</td><td>Less problematic</td><td>Major issue (long sequences)</td><td>Not an issue</td></tr>
+    <tr><td>Match (CA Q5)</td><td>Image processing</td><td>Sequence modeling</td><td>Parallel processing</td></tr>
+    <tr><td>Also handles</td><td>Object detection</td><td>Speech, Stock prices</td><td>Translation, Generation</td></tr></table>
+
+    <div class="section-title" style="font-size:1rem">BERT vs GPT</div>
+    <table><tr><th>Feature</th><th>BERT</th><th>GPT</th></tr>
+    <tr><td>Direction</td><td>Bidirectional (L ↔ R)</td><td>Unidirectional (L → R)</td></tr>
+    <tr><td>Architecture</td><td>Encoder-only</td><td>Decoder-only</td></tr>
+    <tr><td>Training Task</td><td>MLM (mask 15%) + NSP</td><td>Autoregressive next-token prediction</td></tr>
+    <tr><td>Best Use</td><td>Understanding: QA, Classification, NER, Sentiment</td><td>Generation: Text, Code, Dialogue</td></tr>
+    <tr><td>Context</td><td>Sees past AND future simultaneously</td><td>Sees only past tokens</td></tr>
+    <tr><td>Examples</td><td>BERT-base, RoBERTa, DistilBERT</td><td>GPT-2, GPT-3, GPT-4, ChatGPT</td></tr></table>
+
+    <div class="section-title" style="font-size:1rem">Supervised vs Unsupervised vs Reinforcement Learning</div>
+    <table><tr><th>Feature</th><th>Supervised</th><th>Unsupervised</th><th>Reinforcement</th></tr>
+    <tr><td>Training Data</td><td>Labeled (X, Y pairs)</td><td>Unlabeled (X only)</td><td>Rewards/Penalties</td></tr>
+    <tr><td>Goal</td><td>Predict labels/values</td><td>Find patterns/clusters</td><td>Maximize cumulative reward</td></tr>
+    <tr><td>Algorithms</td><td>SVM, KNN, Linear Reg, DT</td><td>K-Means, DBSCAN, PCA</td><td>Q-Learning, Policy Gradient</td></tr>
+    <tr><td>Example</td><td>Email spam filter, Image classifier</td><td>Customer segmentation</td><td>AlphaGo, Game agents</td></tr>
+    <tr><td>Feedback</td><td>Direct (label comparison)</td><td>No direct feedback</td><td>Delayed reward signal</td></tr></table>
+
+    <div class="section-title" style="font-size:1rem">Search Algorithms Master Reference</div>
+    <table><tr><th>Algorithm</th><th>Type</th><th>Complete</th><th>Optimal</th><th>Time</th><th>Space</th></tr>
+    <tr><td>BFS</td><td>Uninformed</td><td>✅ Yes</td><td>✅ Equal cost</td><td>O(b^d)</td><td>O(b^d)</td></tr>
+    <tr><td>DFS</td><td>Uninformed</td><td>❌ No</td><td>❌ No</td><td>O(b^m)</td><td>O(bm)</td></tr>
+    <tr><td>IDS</td><td>Uninformed</td><td>✅ Yes</td><td>✅ Yes</td><td>O(b^d)</td><td>O(bd)</td></tr>
+    <tr><td>Greedy BFS</td><td>Informed</td><td>❌ No</td><td>❌ No</td><td>O(b^m)</td><td>O(b^m)</td></tr>
+    <tr><td>A*</td><td>Informed</td><td>✅ Yes</td><td>✅ (admissible h)</td><td>Exp.</td><td>Exp.</td></tr>
+    <tr><td>Hill Climbing</td><td>Local</td><td>❌ No</td><td>❌ No</td><td>—</td><td>O(b)</td></tr>
+    <tr><td>Sim. Annealing</td><td>Local</td><td>✅ Prob.</td><td>✅ Prob.</td><td>—</td><td>O(1)</td></tr></table>
+
+    <div class="section-title" style="font-size:1rem">Narrow vs General vs Super AI</div>
+    <table><tr><th>Feature</th><th>Narrow AI (Weak)</th><th>General AI (Strong)</th><th>Super AI</th></tr>
+    <tr><td>Scope</td><td>One specific task</td><td>Any human intellectual task</td><td>Surpasses humans in ALL</td></tr>
+    <tr><td>Learning</td><td>Task-specific only</td><td>Cross-domain learning</td><td>Self-improvement</td></tr>
+    <tr><td>Examples</td><td>Siri, Alexa, ChatGPT, Netflix</td><td>Humanoid robot (theoretical)</td><td>Sci-fi AI (theoretical)</td></tr>
+    <tr><td>Status</td><td>✅ EXISTS NOW</td><td>❌ Theoretical</td><td>❌ Theoretical</td></tr></table>
+  </div>
+
+  <!-- FLASHCARDS -->
+  <div class="page" id="page-flashcards">
+    <div class="section-title">🃏 Flashcards — Click Card to Flip</div>
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <div class="flashcard-front" id="fcFront">Loading...</div>
+        <div class="flashcard-back" id="fcBack">Loading...</div>
+      </div>
+    </div>
+    <div class="flashcard-nav">
+      <button class="btn btn-secondary" onclick="prevCard()">← Prev</button>
+      <div class="fc-counter" id="fcCounter">1 / 40</div>
+      <button class="btn btn-secondary" onclick="nextCard()">Next →</button>
+      <button class="btn btn-primary" onclick="shuffleCards()">🔀 Shuffle</button>
+    </div>
+    <div style="margin-top:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:5px" id="cardGrid"></div>
+  </div>
+
+  <!-- MCQ BANK -->
+  <div class="page" id="page-mcq">
+    <div class="section-title">❓ MCQ Bank (105+ Questions)</div>
+    <div class="mcq-filters">
+      <button class="filter-btn active" onclick="filterMCQ('all',this)">All</button>
+      <button class="filter-btn" onclick="filterMCQ('unit1',this)">Unit 1</button>
+      <button class="filter-btn" onclick="filterMCQ('unit2',this)">Unit 2</button>
+      <button class="filter-btn" onclick="filterMCQ('unit3',this)">Unit 3</button>
+      <button class="filter-btn" onclick="filterMCQ('unit4',this)">Unit 4</button>
+      <button class="filter-btn" onclick="filterMCQ('unit5',this)">Unit 5</button>
+      <button class="filter-btn" onclick="filterMCQ('unit6',this)">Unit 6</button>
+      <button class="filter-btn" onclick="filterMCQ('numerical',this)">🔢 Numerical</button>
+      <button class="filter-btn" onclick="filterMCQ('tricky',this)">⚠️ Tricky</button>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="mcqProgressBar" style="width:0%"></div></div>
+    <div id="mcqContainer"></div>
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="shuffleMCQ()">🔀 Shuffle</button>
+      <button class="btn btn-secondary" onclick="resetMCQ()">↺ Reset Score</button>
+    </div>
+  </div>
+
+  <!-- MOCK TEST -->
+  <div class="page" id="page-mocktest">
+    <div class="section-title">📝 Mock Test — 30 Questions / 30 Minutes</div>
+    <div id="mockSetup">
+      <div class="concept amber"><h3>📋 Instructions</h3>
+        <ul><li>30 MCQs simulating actual INT428 exam pattern</li><li>1 mark each, 0.25 negative marking per wrong answer</li><li>Timer: 30 minutes. Covers all 6 units.</li><li>Submit at any time or let timer run out</li></ul>
+      </div>
+      <button class="btn btn-primary" style="padding:12px 28px;font-size:1rem;margin-top:16px" onclick="startMock()">🚀 Start Mock Test</button>
+    </div>
+    <div id="mockTest" style="display:none">
+      <div class="mock-header">
+        <div><div id="mockProgress" style="font-size:.9rem;color:var(--text2)">Question 1 of 30</div><div style="font-size:.78rem;color:var(--text3);margin-top:4px">Score: <span id="mockScore">0</span> | Attempted: <span id="mockAttempted">0</span></div></div>
+        <div class="mock-timer" id="mockTimer">30:00</div>
+      </div>
+      <div class="question-grid" id="questionGrid"></div>
+      <div id="mockQuestion"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="mockNav(-1)" id="prevBtn">← Prev</button>
+        <button class="btn btn-secondary" onclick="mockNav(1)" id="nextBtn">Next →</button>
+        <button class="btn btn-primary" onclick="submitMock()" style="margin-left:auto">📊 Submit & See Results</button>
+      </div>
+    </div>
+    <div id="mockResult" style="display:none"></div>
+  </div>
+</div>
+</div>
+<script>
+// ============================================================
+// TOP 100 DATA
+// ============================================================
+const top100Data = [
+  "AI is a branch of computer science that develops machines to simulate human intelligence",
+  "6 Foundations of AI: Philosophy, Mathematics, Psychology, Computer Engineering, Neuroscience, Linguistics — Astrology is NOT one",
+  "Narrow AI = specific task, EXISTS (Siri, Alexa). General AI = any task, THEORETICAL. Super AI = surpasses humans, THEORETICAL",
+  "Siri, Alexa, Cortana = Personal Voice Assistants (NOT machine learning algorithms)",
+  "Expert System = Knowledge Base + Inference Engine + User Interface. Uses IF-THEN rules.",
+  "Certainty factors are used in rule-based expert systems (NOT Bayesian networks, NOT genetic algorithms)",
+  "Production system = A system of rules for problem-solving (IF-THEN, working memory, inference engine)",
+  "State space = all possible states. Branching factor = number of states generated FROM a given state",
+  "BFS: Queue (FIFO), Complete, Optimal (equal cost), Time O(b^d), Space O(b^d)",
+  "DFS: Stack (LIFO), NOT complete (loops), NOT optimal, Time O(b^m), Space O(bm)",
+  "IDS = DFS + increasing depth limit = Complete + Optimal + O(bd) space — best of both worlds",
+  "Greedy BFS: f(n)=h(n) only — fast but NOT guaranteed optimal",
+  "A* Search: f(n)=g(n)+h(n) — Complete and Optimal IF h is admissible [h(n)≤h*(n)]",
+  "h*(n) = ACTUAL optimal cost from node n to goal. Admissible: h(n) must never exceed h*(n)",
+  "8-Puzzle A* example: g(n)=3, h(n)=5 → f(n)=g(n)+h(n)=8",
+  "Minimax: MAX maximizes evaluation, MIN minimizes. Evaluates ALL game states.",
+  "Alpha-Beta Pruning: SKIPS unnecessary branches in Minimax. α=best MAX score, β=best MIN score",
+  "Main purpose Alpha-Beta = Reduce nodes evaluated in Minimax (NOT improve heuristic)",
+  "Simulated Annealing accepts worse solutions to escape local minima and explore more solution space",
+  "Random Restart Hill Climbing: restarts from multiple random initial states to escape local maxima",
+  "Water jug max states: (cap1+1)×(cap2+1). Example: 4L+3L = 5×4 = 20 states",
+  "Supervised = labeled data. Unsupervised = unlabeled. Reinforcement = rewards. Semi-supervised = both",
+  "Static Learning is NOT a category of ML — it is the odd one out (Q51 sample paper)",
+  "Cross-validation is used to REDUCE OVERFITTING (NOT increase training speed)",
+  "Overfitting = good training performance + poor test performance",
+  "Best model = Low bias + Low variance (NOT high bias, NOT high variance)",
+  "Precision = TP/(TP+FP) | Recall = TP/(TP+FN) | Accuracy = (TP+TN)/Total | F1 = 2PR/(P+R)",
+  "CA Q1: TP=40,TN=30,FP=20,FN=10 → Recall=0.80, Precision=0.67",
+  "Standard Deviation of {3,7,7,7,9}: Mean=6.6, Variance=3.84, SD=√3.84≈2",
+  "Bayes: P(S|W) = P(W|S)×P(S)/P(W) = 0.24/0.38 ≈ 0.63 (CA Q7 answer: B)",
+  "Naive Bayes key assumption: All features are INDEPENDENT given the class label",
+  "Bayesian network = DAG representing probabilistic relationships among variables",
+  "Joint probability in Bayesian networks = Product of conditional probabilities",
+  "K-Means: (1)Choose centroids (2)Assign to nearest (3)Update centroids=mean (4)Repeat until convergence",
+  "KNN: Classify based on majority vote of K nearest neighbors (Euclidean distance)",
+  "Feature Engineering: Improve accuracy, reduce overfitting, boost interpretability, enhance efficiency",
+  "RL MDP components: States, Actions, Transition Probability, Reward Function, Discount Factor γ",
+  "Discount γ≈1 = future rewards important. γ≈0 = focus only on immediate rewards",
+  "Perceptron: Single neuron, linear classifier, binary classification (can only draw a straight line)",
+  "MLP: Multiple hidden layers, solves non-linear problems (XOR), Universal Function Approximator",
+  "CNN: Designed for images/grid data. Preserves spatial relationships between pixels",
+  "CNN Architecture: Input → Convolution → Pooling → Fully Connected → Output",
+  "Convolution layer: Applies kernels/filters to detect features, produces feature maps",
+  "Max Pooling: Keeps maximum value in each window — reduces spatial dimensions",
+  "Role of Pooling = Reduce spatial dimensions of feature maps (CA Q14)",
+  "RNN: Sequential data, hidden state memory h_t, recurrent connection (loop)",
+  "RNN problem = Vanishing gradient during long sequences",
+  "Transformer: Introduced 2017 (Google Brain), parallel processing, self-attention",
+  "Positional Encoding: Sine/Cosine waves added to preserve word order (parallel processing loses order)",
+  "Self-Attention: Q=What looking for, K=What can offer, V=Actual content",
+  "BERT: Bidirectional (L↔R), MLM+NSP training, Encoder-only, Best for understanding",
+  "GPT: Autoregressive (L→R), Next-token prediction, Decoder-only, Best for generation",
+  "BERT sees past AND future. GPT sees only past (future masked during decoding)",
+  "GAN: Generator creates synthetic data. Discriminator judges real vs fake. Generator GENERATES samples",
+  "Component generating new samples in GAN = Generator (Sample Q7 → Answer d)",
+  "VAE primary purpose = Generate new data by learning a probabilistic latent space (Sample Q41 → Answer b)",
+  "Generative AI CREATES new data. Traditional AI ANALYZES existing data (Sample Q19 → Answer b)",
+  "GenAI learns by detecting PATTERNS in training data (NOT memorizing past data — Sample Q45 → Answer b)",
+  "Zero-shot = predict UNSEEN tasks directly without task-specific training (Sample Q13 → Answer c)",
+  "Few-shot = learn from a small number of examples (1-shot, 5-shot, etc.)",
+  "Prompt = input given to a language model (Sample Q30 → Answer b)",
+  "Best strategy to refine AI responses = Rewriting and iterating prompts (Sample Q2 → Answer a)",
+  "Prompt patterns: Instruction-based, Chain-of-Thought, Few-shot — ALL are valid (Sample Q58 → Answer d)",
+  "PaLM has more parameters → understands complex queries better than smaller models (Sample Q46 → Answer c)",
+  "Diffusion models: Forward=add noise, Reverse=remove noise to generate content",
+  "NLP chatbot pipeline: Speech Recog → Text Preprocessing → Intent Recog → Response Gen (Sample Q31 → Answer c)",
+  "Machine Translation = NLP application (NOT self-driving cars or image recognition — Sample Q5 → Answer c)",
+  "NER (Named Entity Recognition): Used to improve virtual assistants like Alexa/Siri (Sample Q38 → Answer b)",
+  "Spell checking in NLP = Edit Distance (NOT TF-IDF — Sample Q48 → Answer a)",
+  "Soundex('Smith') = S530 (Sample Q28 → Answer b)",
+  "Backward chaining = GOAL-DRIVEN reasoning (Sample Q42 → Answer b)",
+  "Heuristic Search is NOT a knowledge representation technique (Sample Q25 → Answer a)",
+  "Knowledge representation: Frames, Semantic Networks, Logical Representation",
+  "Dempster-Shafer belief functions = Degree of confidence in a hypothesis (Sample Q47 → Answer a)",
+  "ChatGPT ADA can analyze datasets and run Python. Standard ChatGPT cannot (Sample Q50 → Answer c)",
+  "Error identification in ADA = Data validation to identify discrepancies (Sample Q18 → Answer a)",
+  "Categorical data visualization = Bar chart (Sample Q12 → Answer c)",
+  "df.drop_duplicates() removes duplicate rows (Sample Q21 → Answer d)",
+  "ZeroDivisionError = error when dividing by zero in Python (Sample Q15 → Answer b)",
+  "Grammarly = AI-based writing assistant (Sample Q23 → Answer b)",
+  "ChatGPT = most suitable for Marketing and Social Media Content Creation (Sample Q59 → Answer d)",
+  "MLOps = DevOps for ML — automates training, deployment, monitoring lifecycle",
+  "De Morgan's Law: ¬(P∨Q) = (¬P)∧(¬Q) (Sample Q34 → Answer a)",
+  "P→Q ≡ ¬P∨Q (Implication equivalence)",
+  "Biconditional: P↔Q ≡ (P→Q)∧(Q→P)",
+  "NOT a valid logical connector: Aggregation (valid: Conjunction, Disjunction, Implication — Sample Q54 → Answer c)",
+  "DFS preferred over BFS when memory constraints are strict (Sample Q52 → Answer b)",
+  "IDS suitable for problems with infinite state spaces (Sample Q56 → Answer c)",
+  "A* guarantees optimal solution when heuristic is ADMISSIBLE (Sample Q44 → Answer a)",
+  "Sim. Annealing accepts worse solutions to explore more solution space (Sample Q40 → Answer b)",
+  "Best-First Search selects next node based on heuristic value h(n) (Sample Q20 → Answer b)",
+  "GPT models differ from search engines: they GENERATE new text (Sample Q43 → Answer a)",
+  "Backward chaining is goal-driven (starts from goal, works backward to find facts — Sample Q42 → Answer b)",
+  "CNN match: Image processing. RNN match: Sequence modeling. Transformer match: Parallel processing (CA Q5)",
+  "Perceptron weight update: w = w - η·x. η = learning rate. Correction based on mistakes.",
+  "MLP hidden layers act as FEATURE EXTRACTORS — transform data so output layer can separate classes",
+  "Encoder in Transformer: Maps input to rich vector representation. Decoder: Generates output.",
+  "Masked Attention in Decoder: prevents looking at FUTURE tokens (auto-regressive constraint)",
+  "Cross-Attention: Decoder looks at Encoder's output to generate each new token",
+  "LLMs show emergent abilities: zero-shot translation, code generation — not explicitly trained for these",
+  "Residual connections in Transformer: Output = Input + Function(Input) — prevents info loss in deep models",
+  "Layer Normalization: Keeps activations stable at every step, prevents gradient explosion/vanishment",
+  "LSTM solves RNN vanishing gradient problem using gates: forget, input, and output gates"
+];
+
+// ============================================================
+// FLASHCARD DATA
+// ============================================================
+const flashcards = [
+  {q:"What is the A* evaluation function?", a:"f(n) = g(n) + h(n)\ng(n) = actual cost from start to n\nh(n) = heuristic estimate from n to goal\nOptimal when h is admissible: h(n) ≤ h*(n)"},
+  {q:"What is an admissible heuristic?", a:"h(n) ≤ h*(n)\nThe heuristic NEVER overestimates the actual cost to goal.\nRequired for A* to guarantee optimal solution."},
+  {q:"BFS — data structure, complete, optimal?", a:"Data Structure: Queue (FIFO)\nComplete: YES\nOptimal: YES (equal step costs)\nTime & Space: O(b^d)"},
+  {q:"Greedy BFS vs A* — key difference?", a:"Greedy BFS: f(n) = h(n) ONLY → NOT optimal\nA*: f(n) = g(n) + h(n) → OPTIMAL (admissible h)\nA* considers BOTH cost AND heuristic."},
+  {q:"Classic RNN problem?", a:"Vanishing Gradient during long sequences.\nGradients shrink as they backpropagate through many time steps → Model can't learn long-term dependencies.\nSolution: LSTM gates or Transformers."},
+  {q:"Why is Positional Encoding needed in Transformers?", a:"Transformers process ALL tokens in PARALLEL → they lose word order.\nPositional Encoding adds sine/cosine waves to embeddings to encode position.\nCA Q12: Answer = Provide ordered sequence data."},
+  {q:"BERT reading direction?", a:"BERT: Bidirectional (Left ↔ Right simultaneously)\nGPT: Unidirectional (Left → Right only)\nBERT: Understanding tasks | GPT: Generation tasks"},
+  {q:"BERT's two training objectives?", a:"1. MLM — Masked Language Modeling: Predict [MASK]ed words (15% hidden)\n2. NSP — Next Sentence Prediction: Does sentence B logically follow sentence A?"},
+  {q:"What does the Generator do in a GAN?", a:"Generator CREATES new synthetic data from random noise.\nGoal: Fool the Discriminator.\n(Sample Q7: Component generating new samples = Generator → Answer d)"},
+  {q:"Primary purpose of VAE?", a:"Generate new data by learning a PROBABILISTIC latent space.\nEncoder → mean + variance → Sample z → Decoder → reconstruct\n(Sample Q41 → Answer b)"},
+  {q:"Precision vs Recall formulas?", a:"Precision = TP/(TP+FP)\n'Of predicted positives, how many are actually positive?'\n\nRecall = TP/(TP+FN)\n'Of actual positives, how many did we catch?'"},
+  {q:"Naive Bayes key assumption?", a:"All features are INDEPENDENT given the class label.\nThis 'naive' conditional independence assumption makes computation feasible.\n(Sample Q16 → Answer d)"},
+  {q:"What does cross-validation prevent?", a:"OVERFITTING\nSplits data into k folds: train on k-1, test on 1, rotate.\nCA Q8 → Answer: Reduce overfitting risk."},
+  {q:"K-Means Clustering steps?", a:"1. Choose K initial centroids\n2. Assign each point to nearest centroid\n3. Update centroid = mean of cluster\n4. Repeat until convergence (centroids don't move)"},
+  {q:"RL discount factor γ?", a:"γ between 0 and 1:\nγ ≈ 1 → future rewards are important\nγ ≈ 0 → focus only on immediate rewards"},
+  {q:"Role of Pooling layer in CNN?", a:"Reduce spatial dimensions (width & height) of feature maps.\nMax Pooling: keeps the maximum value in each window.\nMakes network translation-invariant.\n(CA Q14 → Answer a)"},
+  {q:"Minimax vs Alpha-Beta Pruning?", a:"Minimax: Evaluates ALL possible game states\nAlpha-Beta: SKIPS unnecessary branches\nα = best score for MAX | β = best score for MIN\nGoal: Reduce nodes evaluated in Minimax"},
+  {q:"NLP chatbot pipeline sequence?", a:"Speech Recognition →\nText Preprocessing →\nIntent Recognition →\nResponse Generation\n(Sample Q31 → Answer c)"},
+  {q:"Zero-shot learning definition?", a:"Model predicts UNSEEN tasks directly without being specifically trained on examples of those tasks.\n(Sample Q13 → Answer c: Predict unseen tasks directly)"},
+  {q:"Three prompt patterns?", a:"1. Instruction-based: Direct command ('Translate to French:')\n2. Chain-of-Thought (CoT): Step-by-step reasoning\n3. Few-shot: Examples provided first\n(All three are valid — Sample Q58 → Answer d)"},
+  {q:"Self-Attention Q, K, V meaning?", a:"Q (Query): What I am looking for?\nK (Key): What can I offer?\nV (Value): The actual content\nAttention(Q,K,V) = softmax(QK^T/√d_k)·V"},
+  {q:"Six foundations of AI?", a:"1. Philosophy (Logic & Reasoning)\n2. Mathematics (Probability, Stats)\n3. Psychology (Human Behavior)\n4. Computer Engineering\n5. Neuroscience (Brain)\n6. Linguistics (Language)\nNOT: Astrology (Sample Q27)"},
+  {q:"Why does Simulated Annealing accept worse solutions?", a:"To ESCAPE LOCAL MINIMA and explore more of the solution space.\n(Sample Q40 → Answer b)\nNOT to run faster. Probability of accepting decreases as temperature cools."},
+  {q:"Types of AI: status of each?", a:"Narrow AI: Specific task → EXISTS (Siri, Alexa, ChatGPT)\nGeneral AI: Any human task → THEORETICAL\nSuper AI: Surpasses humans → THEORETICAL"},
+  {q:"Branching factor definition?", a:"The number of DIFFERENT STATES that can be generated from a given state.\n(Sample Q11 → Answer c)\nNOT: paths to goal, heuristic values, or depth of search tree"},
+  {q:"De Morgan's Laws?", a:"¬(P∨Q) = (¬P)∧(¬Q)\n¬(P∧Q) = (¬P)∨(¬Q)\nImplication: P→Q ≡ ¬P∨Q\nBiconditional: P↔Q ≡ (P→Q)∧(Q→P)\n(Sample Q34 → Answer a)"},
+  {q:"Backward chaining advantage?", a:"It is GOAL-DRIVEN reasoning.\nStarts from the goal and works backward to find supporting facts/rules.\n(Sample Q42 → Answer b)\nForward chaining = data-driven (starts from facts)."},
+  {q:"Generative AI vs Traditional AI difference?", a:"Generative AI: CREATES new data (text, images, audio)\nTraditional AI: ANALYZES existing data\n(Sample Q19 → Answer b)"},
+  {q:"GPT vs search engines difference?", a:"GPT GENERATES new text based on training patterns.\nSearch engines: retrieve live results, rank links, collect web pages.\n(Sample Q43 → Answer a)"},
+  {q:"Water jug max states formula?", a:"Max states = (cap1+1) × (cap2+1)\n4L + 3L jugs = (4+1)×(3+1) = 5×4 = 20 states\n(Sample Q10 → Answer d)"},
+  {q:"CNN vs RNN vs Transformer — match their primary use?", a:"CNN → Image processing (spatial features)\nRNN → Sequence modeling (temporal data)\nTransformer → Parallel processing (self-attention)\n(CA Q5 Match Question)"},
+  {q:"Confusion matrix: TP=40, TN=30, FP=20, FN=10 — Recall and Precision?", a:"Recall = TP/(TP+FN) = 40/50 = 0.80\nPrecision = TP/(TP+FP) = 40/60 = 0.67\n(CA Q1 → Answer B: Recall=0.80, Precision=0.67)"},
+  {q:"Convolution layer role in CNN?", a:"Applies filters/kernels to input to detect features (edges, textures, patterns).\nEach filter produces a feature map.\nFilters are LEARNED during training (not hand-crafted)."},
+  {q:"BERT MLM training explained?", a:"Masked Language Modeling:\nHide 15% of words with [MASK] token.\nBERT must predict the masked words.\nExample: 'The [MASK] sat on the mat' → predicts 'cat'\nForces bidirectional understanding."},
+  {q:"Perceptron vs MLP — key difference?", a:"Perceptron: Single neuron, ONLY linear boundaries (draws one line)\nMLP: Multiple hidden layers, solves NON-LINEAR problems\nMLP is a Universal Function Approximator.\nMLP can solve XOR; Perceptron cannot."},
+  {q:"Word Embedding in NLP?", a:"Dense vector representation of words in continuous high-dimensional space.\nCaptures semantic similarity: 'King' - 'Man' + 'Woman' ≈ 'Queen'\nEnables mathematical operations on language meaning."},
+  {q:"Dempster-Shafer Theory?", a:"Alternative to Bayesian probability for uncertainty.\nBelief functions = DEGREE OF CONFIDENCE in a hypothesis.\n(Sample Q47 → Answer a)\nHandles 'ignorance' (unknown probability) better than Bayes."},
+  {q:"Knowledge Representation types?", a:"Valid types: Frames, Semantic Networks, Logical Representation\nNOT a KR type: Heuristic Search (Sample Q25 → Answer a)\nNOT an approach: Neural networks (those are ML models)"},
+  {q:"Tokenization in NLP?", a:"Splitting text into smallest processing units (tokens).\nTypes: Word-level ('Hello world' → ['Hello','world'])\nSubword (BPE, used in GPT)\nCharacter-level (['H','e','l','l','o'])\nFirst step in NLP pipeline."},
+  {q:"CNN application examples?", a:"Image classification (ResNet, VGG)\nObject detection (YOLO, R-CNN)\nFacial recognition\nMedical image analysis\nSelf-driving car vision\nBest model for image tasks — NOT RNN or Transformer."}
+];
+
+// ============================================================
+// MCQ DATA
+// ============================================================
+const allMCQs = [
+  {id:1,unit:'unit1',type:'def',q:"Which of the following is NOT a foundation of Artificial Intelligence?",opts:["Mathematics","Psychology","Philosophy","Astrology"],ans:3,exp:"Astrology is NOT a scientific foundation. The 6 foundations are: Philosophy, Mathematics, Psychology, Computer Engineering, Neuroscience, Linguistics. (Sample Q27)"},
+  {id:2,unit:'unit1',type:'def',q:"Siri, Alexa, and Cortana are examples of:",opts:["Machine learning algorithms","Personal voice assistants","Web search engines","Data compression techniques"],ans:1,exp:"Siri, Alexa, Cortana = Personal voice assistants — Narrow AI applications. NOT machine learning algorithms. (Sample Q22)"},
+  {id:3,unit:'unit1',type:'def',q:"What is a Production System in AI?",opts:["A system of rules for problem-solving","A hardware-based solution framework","A system for managing production tasks","A framework for data storage"],ans:0,exp:"A production system is a system of IF-THEN rules for problem-solving. It has working memory, a rule base, and an inference engine. (Sample Q3)"},
+  {id:4,unit:'unit1',type:'def',q:"Certainty factors are used in:",opts:["Rule-based expert systems","Bayesian neural networks","Genetic algorithms","Deep reinforcement learning"],ans:0,exp:"Certainty factors are confidence measures used specifically in rule-based expert systems (like MYCIN) to handle uncertain rule-based reasoning. (Sample Q4)"},
+  {id:5,unit:'unit1',type:'def',q:"Which type of AI can perform any intellectual task that a human can?",opts:["Narrow AI","General AI","Super AI","Weak AI"],ans:1,exp:"General AI (Strong AI) can perform any intellectual task a human can. It is currently THEORETICAL and does not exist. Narrow AI only handles specific tasks."},
+  {id:6,unit:'unit1',type:'def',q:"Which of the following best defines intelligence?",opts:["Ability to perform tasks without learning","Ability to adapt to new situations and solve problems","Ability to memorize information","Ability to follow instructions precisely"],ans:1,exp:"Intelligence = ability to adapt to new situations and solve problems. This encompasses reasoning, learning, perception and decision-making. (Sample Q57)"},
+  {id:7,unit:'unit1',type:'mcq',q:"MYCIN is an example of:",opts:["Machine Learning model","Expert System for medical diagnosis","Reinforcement Learning agent","Computer Vision system"],ans:1,exp:"MYCIN is the classic expert system for medical diagnosis. Uses IF-THEN rules with certainty factors to suggest diagnoses based on symptoms."},
+  {id:8,unit:'unit1',type:'mcq',q:"Which AI toolkit is developed by Meta (Facebook) for deep learning research?",opts:["TensorFlow","scikit-learn","PyTorch","Keras"],ans:2,exp:"PyTorch is developed by Meta/Facebook. TensorFlow is by Google. scikit-learn is for classical ML. Keras is a high-level API often built on TensorFlow."},
+  {id:9,unit:'unit1',type:'mcq',q:"Computer Vision AI is primarily used for:",opts:["Text translation","Interpreting visual data — images, videos","Audio speech recognition","Database management"],ans:1,exp:"Computer Vision processes visual data: images, videos. Applications: facial recognition, object detection, self-driving cars, medical imaging."},
+  {id:10,unit:'unit1',type:'mcq',q:"Chemical Synthesis production system is classified as:",opts:["Monotonic and Partially Commutative","Nonmonotonic and Partially Commutative","Nonmonotonic and Not Partially Commutative","Monotonic and Not Partially Commutative"],ans:3,exp:"Chemical Synthesis = Monotonic (facts only added, not removed) and Not Partially Commutative (order of rule application matters). (Sample Q32 → Answer d)"},
+  {id:11,unit:'unit2',type:'numerical',q:"In A* search, if g(n)=9 and h(n)=4, what is f(n)?",opts:["4","9","13","14"],ans:2,exp:"f(n) = g(n) + h(n) = 9 + 4 = 13. Core A* formula. g(n)=actual cost from start, h(n)=heuristic estimate to goal."},
+  {id:12,unit:'unit2',type:'def',q:"The 'branching factor' in state-space search refers to:",opts:["Number of paths leading to the goal state","Number of heuristic values used","Number of different states generated from a given state","Depth of the search tree"],ans:2,exp:"Branching factor = number of different states (children) generated from any given state. (Sample Q11 → Answer c)"},
+  {id:13,unit:'unit2',type:'compare',q:"Main difference between Greedy Best-First Search and A*?",opts:["A* considers both cost and heuristic; GBFS only heuristic","GBFS finds the optimal path","A* is always faster than GBFS","GBFS uses cost but ignores heuristics"],ans:0,exp:"A* uses f(n)=g(n)+h(n) — considers BOTH actual cost AND heuristic. GBFS uses ONLY h(n). A* is optimal (admissible h); GBFS is NOT. (Sample Q14)"},
+  {id:14,unit:'unit2',type:'def',q:"Alpha value in Alpha-Beta pruning represents:",opts:["Best possible score for the maximizer along current path","Best possible score for the minimizer","A fixed score to break ties","A random value for pruning decisions"],ans:0,exp:"Alpha = best possible score for the MAXIMIZER along the current path. Beta = best for MINIMIZER. (Sample Q8 → Answer a)"},
+  {id:15,unit:'unit2',type:'numerical',q:"8-Puzzle: h(n)=5 (Manhattan), g(n)=3. What is f(n) in A*?",opts:["8","5","3","24"],ans:0,exp:"f(n) = g(n) + h(n) = 3 + 5 = 8. (Sample Q33 → Answer a)"},
+  {id:16,unit:'unit2',type:'numerical',q:"Max states in water jug problem with 4L and 3L jugs?",opts:["7","12","15","20"],ans:3,exp:"Max states = (cap1+1)×(cap2+1) = (4+1)×(3+1) = 5×4 = 20 states. (Sample Q10 → Answer d)"},
+  {id:17,unit:'unit2',type:'def',q:"Main purpose of Alpha-Beta pruning?",opts:["Improve heuristic evaluation","Reduce the number of nodes evaluated in Minimax","Randomly select the best move","Ensure fairness in game playing"],ans:1,exp:"Alpha-Beta pruning reduces nodes evaluated in Minimax without affecting the final result. (Sample Q37 → Answer b)"},
+  {id:18,unit:'unit2',type:'def',q:"Why does Simulated Annealing accept worse solutions during early stages?",opts:["To ensure algorithm runs faster","To escape local minima and explore more of the solution space","To always move towards global minimum","To avoid using cooling schedules"],ans:1,exp:"Accepts worse solutions to escape local minima and explore more solution space. (Sample Q40 → Answer b)"},
+  {id:19,unit:'unit2',type:'numerical',q:"Water jug: J1=9L, J2=5L, state=(6,2). Fill J2 then pour into J1. Next state?",opts:["(8,5)","(9,2)","(6,0)","(7,5)"],ans:1,exp:"Fill J2 → (6,5). Pour J2→J1: J1 takes 9-6=3L. J1=6+3=9, J2=5-3=2. State=(9,2). (Sample Q17 → Answer b)"},
+  {id:20,unit:'unit2',type:'def',q:"Which search is suitable for problems with infinite state spaces?",opts:["BFS","DFS","Iterative Deepening (IDS)","Bi-Directional Search"],ans:2,exp:"IDS handles infinite spaces. DFS gets stuck infinitely. BFS uses too much memory. IDS = DFS space efficiency + BFS completeness. (Sample Q56 → Answer c)"},
+  {id:21,unit:'unit2',type:'compare',q:"When is DFS preferred over BFS?",opts:["When graphs have uniform costs","When memory constraints are strict","When optimal solutions are needed","When paths have equal lengths"],ans:1,exp:"DFS uses O(bm) space vs BFS O(b^d). When memory is limited, DFS is preferred despite not being complete/optimal. (Sample Q52 → Answer b)"},
+  {id:22,unit:'unit2',type:'tricky',q:"Which demonstrates De Morgan's Law?",opts:["¬(P∨Q)=(¬P)∧(¬Q)","P∧(Q∨R)=(P∧Q)∨(P∧R)","P→Q is equivalent to ¬P∨Q","P↔Q is equivalent to (P→Q)∧(Q→P)"],ans:0,exp:"De Morgan's Law: ¬(P∨Q) = (¬P)∧(¬Q). Option b=distributive, c=implication equivalence, d=biconditional. (Sample Q34 → Answer a)"},
+  {id:23,unit:'unit2',type:'def',q:"NOT a valid logical connector in propositional logic:",opts:["Conjunction","Disjunction","Aggregation","Implication"],ans:2,exp:"Aggregation is NOT a valid logical connector. Valid: Conjunction (∧), Disjunction (∨), Negation (¬), Implication (→), Biconditional (↔). (Sample Q54 → Answer c)"},
+  {id:24,unit:'unit2',type:'def',q:"A problem in AI is best described as:",opts:["A rule that prevents any state changes","A task defined by an initial and goal state","A process that avoids exploring states","A goal that does not require searching"],ans:1,exp:"A problem in AI = a task defined by an initial state and a goal state, with actions to transition between states. (Sample Q60 → Answer b)"},
+  {id:25,unit:'unit2',type:'def',q:"Random Restart Hill Climbing overcomes local maxima by:",opts:["Restarting from multiple random initial states","Making only small changes in search path","Avoiding heuristic evaluation","Selecting only one best path at start"],ans:0,exp:"Restarts from multiple random initial states, runs Hill Climbing from each, keeps the best result found. (Sample Q49 → Answer a)"},
+  {id:26,unit:'unit3',type:'numerical',q:"Confusion matrix: TP=40, TN=30, FP=20, FN=10. Recall and Precision?",opts:["Recall=0.80, Precision=0.67","Recall=0.67, Precision=0.80","Recall=0.75, Precision=0.60","Recall=0.60, Precision=0.75"],ans:0,exp:"Recall=TP/(TP+FN)=40/50=0.80. Precision=TP/(TP+FP)=40/60=0.67. (CA Q1 → Answer B)"},
+  {id:27,unit:'unit3',type:'numerical',q:"Standard Deviation of: 3, 7, 7, 7, 9",opts:["2","1.79","1.41","2.24"],ans:0,exp:"Mean=6.6. Variance=[(3-6.6)²+(7-6.6)²×3+(9-6.6)²]/5=19.2/5=3.84. SD=√3.84≈1.96≈2. (CA Q6 → Answer A)"},
+  {id:28,unit:'unit3',type:'numerical',q:"P(S)=0.3, P(H)=0.7, P(W|S)=0.8, P(W|H)=0.2. Find P(S|W):",opts:["0.46","0.63","0.70","0.55"],ans:1,exp:"P(W)=0.8×0.3+0.2×0.7=0.38. P(S|W)=0.24/0.38≈0.63. (CA Q7 → Answer B)"},
+  {id:29,unit:'unit3',type:'def',q:"Cross-validation is used to:",opts:["Reduce overfitting risk","Increase training speed","Remove features","Increase dataset size"],ans:0,exp:"Cross-validation REDUCES OVERFITTING by evaluating model performance on unseen data. (CA Q8 → Answer a)"},
+  {id:30,unit:'unit3',type:'tricky',q:"Model performs well on training but poorly on test data. This indicates:",opts:["Underfitting issue","Overfitting problem","Perfect generalisation","Data normalisation"],ans:1,exp:"Good train + poor test = OVERFITTING. Model memorized training data but fails to generalize. (CA Q9 → Answer b: Overfitting problem)"},
+  {id:31,unit:'unit3',type:'def',q:"Best combination for model performance:",opts:["High bias, high variance","Low bias, high variance","Low bias, low variance","High bias, low variance"],ans:2,exp:"Low bias (can fit data) + Low variance (generalizes well) = best model. High bias=underfitting. High variance=overfitting. (CA Q10 → Answer c)"},
+  {id:32,unit:'unit3',type:'def',q:"Key assumption in Naive Bayes classification:",opts:["All features are correlated","Equal priors for all classes","No missing values","All features are independent given the class"],ans:3,exp:"Naive Bayes assumes conditional independence: all features are independent given the class label. (Sample Q16 → Answer d)"},
+  {id:33,unit:'unit3',type:'def',q:"A Bayesian network represents:",opts:["Probabilistic relationships among variables","Deterministic rules in logic","Knowledge graphs in AI","Fuzzy logic statements"],ans:0,exp:"Bayesian network = DAG representing PROBABILISTIC RELATIONSHIPS among variables. Enables inference under uncertainty. (Sample Q9 → Answer a)"},
+  {id:34,unit:'unit3',type:'tricky',q:"Joint probability is computed in Bayesian networks by:",opts:["Sum of all probabilities","Product of conditional probabilities","Difference of all probabilities","Average of node probabilities"],ans:1,exp:"Joint probability = PRODUCT of conditional probabilities (chain rule). (CA Q4 → Answer b: Product of conditional probabilities)"},
+  {id:35,unit:'unit3',type:'def',q:"Odd one out among ML categories:",opts:["Unsupervised Learning","Semi-Supervised Learning","Reinforcement Learning","Static Learning"],ans:3,exp:"Static Learning is NOT a machine learning category. The four types are: Supervised, Unsupervised, Semi-Supervised, Reinforcement Learning. (Sample Q51 → Answer d)"},
+  {id:36,unit:'unit3',type:'numerical',q:"KNN K=3: A(1,1)→Red, B(2,2)→Red, C(4,4)→Blue. Classify P(3,3):",opts:["Red","Blue","Cannot classify","Equal"],ans:0,exp:"d(P,B)=√2, d(P,C)=√2, d(P,A)=√8. 3 nearest: B(Red), C(Blue), A(Red)=2Red+1Blue → P=Red. (CA Q3 → Answer A)"},
+  {id:37,unit:'unit3',type:'def',q:"Discount factor γ close to 1 in RL indicates:",opts:["Focus on immediate rewards only","Future rewards are important","Random exploration","No learning occurs"],ans:1,exp:"γ≈1 means future rewards are considered nearly as important as immediate rewards. γ≈0 means focus on immediate rewards only."},
+  {id:38,unit:'unit3',type:'def',q:"Fraud model misses fraud cases but rarely flags normal transactions. What is true?",opts:["High recall, low precision","High recall, high precision","Low recall, high precision","Low recall, low precision"],ans:2,exp:"Misses fraud=LOW RECALL (high FN). Rarely flags normal=HIGH PRECISION (low FP). → Low recall, high precision. (CA Q15 → Answer c)"},
+  {id:39,unit:'unit4',type:'def',q:"Best model for image classification tasks:",opts:["RNN handling sequential time data","Transformer without convolution layers","CNN extracting spatial features effectively","Bayesian network modeling probabilistic relations"],ans:2,exp:"CNN is specifically designed for images. Preserves spatial relationships. Uses convolution to detect features. (CA Q2 → Answer C)"},
+  {id:40,unit:'unit4',type:'tricky',q:"Common problem faced by basic RNNs:",opts:["Lack of activation functions in hidden layers","Increasing spatial resolution of input images","Difficulty handling fixed size input vectors","Vanishing gradient during long sequences"],ans:3,exp:"Vanishing gradient is the classic RNN problem: gradients become tiny during backpropagation through many time steps. (CA Q11 → Answer D)"},
+  {id:41,unit:'unit4',type:'def',q:"Why is positional encoding used in Transformers?",opts:["Provide ordered sequence data","Reduce number of parameters","Increase convolution filter efficiency","Replace activation functions in layers"],ans:0,exp:"Transformer reads ALL tokens in PARALLEL → loses word order. Positional encoding adds position info via sine/cosine waves. (CA Q12 → Answer A)"},
+  {id:42,unit:'unit4',type:'def',q:"Role of pooling layer in CNN:",opts:["Reduce spatial dimensions of feature maps","Increase number of convolution filters","Convert features into probability outputs","Add noise to improve model generalization"],ans:0,exp:"Pooling reduces spatial dimensions (width & height) while retaining important features. Max Pooling keeps maximum values. (CA Q14 → Answer A)"},
+  {id:43,unit:'unit4',type:'compare',q:"CNN→?, RNN→?, Transformer→? (match with primary function)",opts:["CNN:Sequence, RNN:Image, Transformer:Parallel","CNN:Image, RNN:Sequence, Transformer:Parallel","CNN:Parallel, RNN:Image, Transformer:Sequence","CNN:Image, RNN:Parallel, Transformer:Sequence"],ans:1,exp:"CNN→Image processing. RNN→Sequence modeling. Transformer→Parallel processing. (CA Q5 Match → Answer B: 1-B, 2-A, 3-C, 4-D)"},
+  {id:44,unit:'unit4',type:'tricky',q:"In zero-shot learning, a model is expected to:",opts:["Train only on labelled data","Ignore new input data","Predict unseen tasks directly","Evaluate only known classes"],ans:2,exp:"Zero-shot learning = predict UNSEEN tasks directly without task-specific training. Emerges from large-scale pretraining. (Sample Q13 → Answer c)"},
+  {id:45,unit:'unit4',type:'def',q:"BERT is called 'bidirectional' because:",opts:["It reads Left→Right only","It reads Left↔Right simultaneously","It uses two separate encoders","It has two decoders"],ans:1,exp:"BERT reads context from BOTH directions simultaneously. This bidirectional understanding resolves ambiguity (e.g., 'bank' in different contexts)."},
+  {id:46,unit:'unit4',type:'def',q:"How do GPT models differ from search engines?",opts:["They generate new text","They retrieve live results","They rank search links","They collect websites"],ans:0,exp:"GPT GENERATES new text based on training patterns. Search engines retrieve, rank, and index live web pages. (Sample Q43 → Answer a)"},
+  {id:47,unit:'unit4',type:'def',q:"NLP pipeline for chatbot conversation processing:",opts:["Response gen→Intent recog→Text preprocess→Speech recog","Intent recog→Speech recog→Response gen→Text preprocess","Speech recog→Text preprocess→Intent recog→Response gen","Text preprocess→Response gen→Intent recog→Speech recog"],ans:2,exp:"Correct sequence: Speech Recognition → Text Preprocessing → Intent Recognition → Response Generation. (Sample Q31 → Answer c)"},
+  {id:48,unit:'unit4',type:'def',q:"Approach commonly used for spell checking in NLP:",opts:["Edit Distance","TF-IDF","Tokenization","Latent Dirichlet Allocation"],ans:0,exp:"Edit Distance (Levenshtein) measures insertions/deletions/substitutions needed to transform one word to another. Standard spell-checking approach. (Sample Q48 → Answer a)"},
+  {id:49,unit:'unit4',type:'def',q:"Self-Attention in Transformers:",opts:["Weights inputs by position only","Decides which parts of input are important for each word","Reduces computation time","Increases vocabulary size"],ans:1,exp:"Self-Attention allows each token to 'attend' to all other tokens simultaneously, determining which are most relevant for understanding each word."},
+  {id:50,unit:'unit4',type:'tricky',q:"The Attention mechanism was introduced to solve:",opts:["Lack of training data","Fixed-length context vector bottleneck in Seq2Seq models","Slow processing speed in CNNs","Memory constraints in RNNs"],ans:1,exp:"Fixed-length context vector in Seq2Seq: ALL input compressed into ONE vector → loses details for long sequences. Attention allows dynamic focus on relevant parts."},
+  {id:51,unit:'unit5',type:'def',q:"Key difference between Generative AI and traditional AI:",opts:["GenAI is rule-based; traditional is data-driven","GenAI creates new data; traditional analyzes existing data","GenAI is slower than traditional AI","GenAI does not require machine learning"],ans:1,exp:"GenAI CREATES new content. Traditional AI ANALYZES existing data to classify/predict. (Sample Q19 → Answer b)"},
+  {id:52,unit:'unit5',type:'def',q:"GAN component responsible for generating new samples:",opts:["Encoder","Discriminator","Decoder","Generator"],ans:3,exp:"Generator CREATES new synthetic samples. Discriminator evaluates real vs fake. (Sample Q7 → Answer d: Generator)"},
+  {id:53,unit:'unit5',type:'def',q:"Primary purpose of Variational Autoencoders (VAEs):",opts:["Classify images into categories","Generate new data by learning a probabilistic latent space","Detect anomalies in time-series","Optimize database queries"],ans:1,exp:"VAEs generate new data by learning a PROBABILISTIC latent space (μ, σ²). (Sample Q41 → Answer b)"},
+  {id:54,unit:'unit5',type:'def',q:"Generative AI 'learns' to create new content by:",opts:["Memorizing past data","Detecting patterns in training data","Storing all previous outputs","Manually coding responses"],ans:1,exp:"GenAI detects PATTERNS in training data and uses them to generate new content. NOT memorizing data. (Sample Q45 → Answer b)"},
+  {id:55,unit:'unit5',type:'def',q:"Best strategy for refining AI-generated responses:",opts:["Rewriting and iterating prompts","Using a single-word input","Asking for random outputs","Limiting AI to single response type"],ans:0,exp:"Best strategy = rewriting and iterating prompts. Prompt engineering is an iterative process. (Sample Q2 → Answer a)"},
+  {id:56,unit:'unit5',type:'def',q:"Which of the following is a prompt pattern?",opts:["Instruction-based prompt","Chain-of-thought prompt","Few-shot prompt","All of the above"],ans:3,exp:"All three are valid prompt patterns: instruction-based, chain-of-thought, few-shot. (Sample Q58 → Answer d: All of the above)"},
+  {id:57,unit:'unit5',type:'def',q:"PaLM compared to smaller language models:",opts:["PaLM cannot be fine-tuned","Smaller models always perform better","PaLM has more parameters allowing better understanding of complex queries","Smaller models require more data"],ans:2,exp:"PaLM's larger parameter count enables understanding of more complex queries and emergent abilities. (Sample Q46 → Answer c)"},
+  {id:58,unit:'unit5',type:'def',q:"A prompt in AI is:",opts:["A type of algorithm","An input given to a language model","A response from a chatbot","A deep learning model"],ans:1,exp:"A prompt = INPUT given to a language model to get a desired output. (Sample Q30 → Answer b)"},
+  {id:59,unit:'unit5',type:'def',q:"Which model is commonly used for text generation?",opts:["RNN","LSTM","Transformer","All of the above"],ans:3,exp:"RNN, LSTM, and Transformer are all used for text generation. Transformers (GPT) are current state-of-the-art. (Sample Q36 → Answer d)"},
+  {id:60,unit:'unit5',type:'tricky',q:"Minimax evaluates all possible game states, while Alpha-Beta pruning:",opts:["Skips unnecessary branches","Replaces evaluation functions","Only works for Chess","Eliminates the need for Minimax"],ans:0,exp:"Alpha-Beta SKIPS unnecessary branches while finding the same optimal solution as Minimax. (Sample Q53 → Answer a)"},
+  {id:61,unit:'unit6',type:'def',q:"Key difference between ChatGPT and ChatGPT ADA:",opts:["ADA is for fiction writing","ADA provides enhanced visual rendering","ADA can analyze datasets; standard ChatGPT cannot","Both can run Python code equally"],ans:2,exp:"ChatGPT ADA can analyze datasets and RUN Python code. Standard ChatGPT cannot execute code. (Sample Q50 → Answer c)"},
+  {id:62,unit:'unit6',type:'def',q:"Correct visualization for categorical data:",opts:["Line chart","Scatter plot","Bar chart","Heatmap"],ans:2,exp:"Bar chart is correct for categorical data. Line=trends, Scatter=two-variable relationships, Heatmap=correlation matrices. (Sample Q12 → Answer c)"},
+  {id:63,unit:'unit6',type:'def',q:"Error when dividing by zero in Python:",opts:["ValueError","ZeroDivisionError","NameError","IndexError"],ans:1,exp:"ZeroDivisionError is raised when dividing by zero. ValueError=wrong type, NameError=undefined variable, IndexError=index out of range. (Sample Q15 → Answer b)"},
+  {id:64,unit:'unit6',type:'def',q:"How to remove duplicate rows from a pandas DataFrame?",opts:["df.fillna()","df.head()","df.count()","df.drop_duplicates()"],ans:3,exp:"df.drop_duplicates() removes duplicate rows. fillna=missing values, head=preview, count=counts non-null values. (Sample Q21 → Answer d)"},
+  {id:65,unit:'unit6',type:'def',q:"Key technique for error identification in ChatGPT Advanced Data Analysis:",opts:["Using data validation methods to identify discrepancies","Relying on human intuition","Ignoring errors if dataset too large","Only checking formatting issues"],ans:0,exp:"Use data validation methods to identify discrepancies or unusual patterns in input data before analysis. (Sample Q18 → Answer a)"},
+  {id:66,unit:'unit6',type:'def',q:"Most suitable AI-based writing assistant:",opts:["Canva","Grammarly","Photoshop","Audacity"],ans:1,exp:"Grammarly is the AI-based writing assistant. Canva=design, Photoshop=image editing, Audacity=audio. (Sample Q23 → Answer b)"},
+  {id:67,unit:'unit6',type:'def',q:"Most suitable AI tool for Marketing and Social Media Content Creation:",opts:["Photoshop","Audacity","Excel","ChatGPT"],ans:3,exp:"ChatGPT is most suitable for marketing content creation. (Sample Q59 → Answer d)"},
+  {id:68,unit:'unit6',type:'def',q:"Advantage of backward chaining:",opts:["Uses probabilistic reasoning","It is goal-driven","Stores knowledge in a network","It is purely statistical"],ans:1,exp:"Backward chaining = GOAL-DRIVEN. Starts from the goal and works backward to find supporting facts. (Sample Q42 → Answer b)"},
+  {id:69,unit:'unit6',type:'def',q:"In Dempster-Shafer Theory, belief functions represent:",opts:["Degree of confidence in a hypothesis","Number of possible outcomes","Fixed probability of an event","Deterministic outcome with no uncertainty"],ans:0,exp:"Dempster-Shafer belief functions = DEGREE OF CONFIDENCE in a hypothesis, allowing for 'ignorance'. (Sample Q47 → Answer a)"},
+  {id:70,unit:'unit6',type:'tricky',q:"Which is NOT a knowledge representation approach?",opts:["Frames","Neural networks","Semantic Networks","Logical Representation"],ans:1,exp:"Neural networks are ML models, NOT knowledge representation. KR approaches: Frames, Semantic Networks, Logical Representation. (Sample Q26 → Answer b)"},
+  {id:71,unit:'unit2',type:'tricky',q:"A* guarantees optimal solution when:",opts:["Heuristic is consistent","Heuristic is admissible: h(n)≤h*(n)","Branching factor is small","Depth is limited"],ans:1,exp:"A* guarantees optimality when h is ADMISSIBLE — never overestimates h*(n). Consistency implies admissibility. (Sample Q44 → Answer a)"},
+  {id:72,unit:'unit3',type:'tricky',q:"Bayesian networks use uncertainty; rule-based systems rely on:",opts:["Probabilistic reasoning","Deterministic logic","Both A and B","Neural computation"],ans:1,exp:"Rule-based systems use DETERMINISTIC logic (fixed IF-THEN rules). Bayesian networks handle probabilistic uncertainty. (Sample Q1 → Answer b)"},
+  {id:73,unit:'unit4',type:'tricky',q:"Bottleneck in Seq2Seq models before Attention was introduced:",opts:["Too many parameters","All information compressed into single fixed-length context vector","Lack of training data","Sequential processing speed"],ans:1,exp:"The bottleneck: ALL input compressed into ONE fixed-length context vector, losing details for long sequences. Attention solves this by dynamic focus."},
+  {id:74,unit:'unit5',type:'tricky',q:"VAE latent space differs from regular Autoencoder because:",opts:["VAE uses more layers","VAE latent space is a probability distribution (Gaussian)","VAE doesn't use encoders","VAE only works with images"],ans:1,exp:"VAE latent space encodes inputs as distributions (mean μ + variance σ²) rather than fixed points. This enables random sampling to generate new data."},
+  {id:75,unit:'unit4',type:'tricky',q:"Masked Attention in Transformer Decoder prevents:",opts:["Looking at encoder outputs","Looking at future tokens during generation","Processing multiple heads simultaneously","Applying positional encoding"],ans:1,exp:"Masked Attention prevents looking at FUTURE tokens during auto-regressive generation. Decoder can only attend to previously generated tokens."},
+  {id:76,unit:'unit2',type:'tricky',q:"Best-First Search selects next node to expand based on:",opts:["Shortest path found so far","Heuristic value of the node","Number of nodes visited","Random selection"],ans:1,exp:"Best-First Search (Greedy) selects node with lowest heuristic value h(n) — appears closest to goal. Does NOT consider actual cost g(n). (Sample Q20 → Answer b)"},
+  {id:77,unit:'unit5',type:'tricky',q:"Diffusion model generates content by:",opts:["Forward: add noise; Reverse: remove noise to generate","Forward: remove noise; Reverse: add noise","Direct sampling from training data","Adversarial training like GAN"],ans:0,exp:"Forward: add noise step by step until pure noise. Reverse: model learns to remove noise → generates new content from noise."},
+  {id:78,unit:'unit3',type:'tricky',q:"Feature Engineering benefit that is NOT accurate:",opts:["Improve accuracy","Reduce overfitting","INCREASE model training time","Boost interpretability"],ans:2,exp:"Feature engineering REDUCES training time (by focusing on key features). It does NOT increase it. Benefits: better accuracy, less overfitting, interpretability, efficiency."},
+  {id:79,unit:'unit4',type:'tricky',q:"Multi-Head Attention in Transformers means:",opts:["Multiple encoders stacked","Multiple attention mechanisms in parallel, each focusing on different aspects","Multiple decoders","Multiple output layers"],ans:1,exp:"Multi-Head Attention runs several attention mechanisms in parallel. One head focuses on grammar, another vocabulary, another context — richer representation."},
+  {id:80,unit:'unit1',type:'tricky',q:"Heuristic Search in relation to knowledge representation:",opts:["Is a type of knowledge representation","Is NOT a knowledge representation technique","Is equivalent to semantic networks","Is a form of logical representation"],ans:1,exp:"Heuristic Search is a SEARCH STRATEGY, NOT a knowledge representation technique. (Sample Q25 → Heuristic Search is the odd one out — Answer a)"},
+  {id:81,unit:'unit3',type:'mcq',q:"K-Means is an example of which type of learning?",opts:["Supervised Learning","Unsupervised Learning","Reinforcement Learning","Semi-Supervised Learning"],ans:1,exp:"K-Means is UNSUPERVISED — finds natural clusters in unlabeled data. No predefined labels; algorithm discovers structure."},
+  {id:82,unit:'unit4',type:'mcq',q:"What is an Embedding in NLP?",opts:["A grammar checking rule","A dense vector representation of data in continuous space","A list of all words in a language","A method for tokenizing text"],ans:1,exp:"Embedding = dense vector representation in continuous high-dimensional space. Captures semantic similarity: 'King'-'Man'+'Woman'≈'Queen'."},
+  {id:83,unit:'unit2',type:'mcq',q:"In Minimax, the MAX player tries to:",opts:["Minimize the evaluation function","Maximize the evaluation function","Maximize the number of moves","Minimize the depth of search tree"],ans:1,exp:"MAX player tries to MAXIMIZE the evaluation function to get the best possible score. MIN tries to minimize it. (Sample Q24 → Answer b)"},
+  {id:84,unit:'unit5',type:'mcq',q:"What distinguishes LLMs from traditional language models?",opts:["LLMs use less data","LLMs have fewer parameters","LLMs show emergent abilities from massive scale","LLMs only work on specific tasks"],ans:2,exp:"LLMs show EMERGENT ABILITIES not explicitly trained for (zero-shot translation, code generation) that emerge from massive scale."},
+  {id:85,unit:'unit6',type:'mcq',q:"MLOps primarily focuses on:",opts:["Marketing operations","Automating training, deployment, monitoring of ML models","Manual testing of AI models","Database optimization"],ans:1,exp:"MLOps = ML + DevOps. Automates and streamlines the entire ML lifecycle: data prep, training, deployment, monitoring, updates."},
+  {id:86,unit:'unit4',type:'mcq',q:"NLU (Natural Language Understanding) in chatbots extracts:",opts:["Audio output","Structured intent and entities from user input","Database queries","Image representations"],ans:1,exp:"NLU extracts INTENT (what user wants) and ENTITIES (key details: names, dates, places) from natural language input. It's the 'ears' of the chatbot."},
+  {id:87,unit:'unit5',type:'mcq',q:"Chain-of-Thought (CoT) prompting helps AI by:",opts:["Generating longer responses","Breaking problems into step-by-step reasoning","Using fewer tokens","Avoiding making mistakes"],ans:1,exp:"CoT prompting guides AI to break down complex problems step-by-step, significantly improving accuracy on math and logical reasoning tasks."},
+  {id:88,unit:'unit4',type:'mcq',q:"What does NLG (Natural Language Generation) do?",opts:["Understands user intent","Creates human-like responses from structured data","Tokenizes input text","Extracts named entities"],ans:1,exp:"NLG is the 'voice' of the chatbot — converts structured data (facts, numbers) into fluent, human-like text responses."},
+  {id:89,unit:'unit3',type:'mcq',q:"Accuracy formula for confusion matrix:",opts:["TP/(TP+FP)","TP/(TP+FN)","(TP+TN)/(TP+TN+FP+FN)","2×P×R/(P+R)"],ans:2,exp:"Accuracy = (TP+TN)/Total = (TP+TN)/(TP+TN+FP+FN). Measures overall correct predictions out of all predictions."},
+  {id:90,unit:'unit2',type:'mcq',q:"BFS is complete because:",opts:["It uses a heuristic function","It will always find a solution if one exists","It always finds the optimal path","It uses less memory than DFS"],ans:1,exp:"BFS is COMPLETE — will always find a solution if one exists (finite branching factor). Explores all nodes at depth k before k+1."},
+  {id:91,unit:'unit1',type:'mcq',q:"Correct application of Natural Language Processing:",opts:["Self-driving cars","Image recognition","Machine translation","Circuit design"],ans:2,exp:"Machine translation (e.g., Google Translate) is a core NLP application. Self-driving uses Computer Vision. Image recognition uses CNN. (Sample Q5 → Answer c)"},
+  {id:92,unit:'unit4',type:'mcq',q:"What primary task is GPT trained on?",opts:["Masked Language Modeling","Next-token autoregressive prediction","Next Sentence Prediction","Image classification"],ans:1,exp:"GPT is trained to predict the NEXT TOKEN given all previous tokens (autoregressive). This unidirectional training enables text generation."},
+  {id:93,unit:'unit3',type:'mcq',q:"Residual connections in Transformers serve what purpose?",opts:["Add noise for regularization","Create shortcuts preventing information loss in deep models","Reduce parameter count","Increase attention heads"],ans:1,exp:"Residual connections: Output = Input + Function(Input). Creates shortcuts preventing information loss in deep models and helps gradient flow."},
+  {id:94,unit:'unit6',type:'mcq',q:"What would happen without error-handling in ChatGPT ADA?",opts:["Clear and structured results","Process becomes more efficient","AI automatically fixes all errors","Output might include incorrect or incomplete data"],ans:3,exp:"Without error handling, output might include incorrect or incomplete data. (Sample Q55 → Answer d)"},
+  {id:95,unit:'unit5',type:'mcq',q:"What does 'Responsible AI' address?",opts:["Only algorithm efficiency","Bias, fairness, transparency, privacy, accountability in AI","Only model accuracy","Speed of AI processing"],ans:1,exp:"Responsible AI addresses: Bias in models, Fairness, Transparency (explainability), Privacy protection, Accountability for AI decisions."},
+  {id:96,unit:'unit3',type:'mcq',q:"Perceptron is limited because:",opts:["Can't process any data","Can only draw a straight line (linear decision boundary)","Uses too much memory","Requires GPU"],ans:1,exp:"Perceptron limitation: It's a LINEAR classifier — can only draw a straight line. Non-linear problems (XOR) require MLP with hidden layers."},
+  {id:97,unit:'unit4',type:'mcq',q:"Layer Normalization in Transformers does:",opts:["Adds positional information","Keeps activations stable, preventing gradient explosion/vanishment","Reduces attention heads","Increases model parameters"],ans:1,exp:"Layer Normalization normalizes activations to zero mean and unit variance at every layer. Prevents gradient explosion/vanishment in deep Transformer models."},
+  {id:98,unit:'unit4',type:'mcq',q:"Cross-Attention in Transformer Decoder allows:",opts:["Decoder to attend to its own previous outputs","Decoder to look back at Encoder's rich representation","Encoder to generate output","Parallel processing of decoder tokens"],ans:1,exp:"Cross-Attention (Encoder-Decoder Attention) allows the Decoder to look back at the Encoder's representation when generating each output token."},
+  {id:99,unit:'unit6',type:'mcq',q:"Tableau is mentioned in INT428 syllabus for:",opts:["Machine learning","Data analysis and visualization","Neural network training","Cloud deployment"],ans:1,exp:"Tableau is specifically mentioned in Unit VI of INT428 syllabus for data analysis and visualization. It's a BI tool for creating interactive dashboards."},
+  {id:100,unit:'unit3',type:'numerical',q:"Perceptron weight update rule:",opts:["w = w + η·x","w = w - η·x","w = w × η·x","w = w / η·x"],ans:1,exp:"Weight update: w = w - η·x where η is the learning rate. Gradient descent: subtract gradient to minimize error. Negative sign = correcting mistakes."},
+  {id:101,unit:'unit5',type:'mcq',q:"GPT's zero-shot ability means:",opts:["Run without a GPU","Perform tasks not explicitly trained for","Generate images","Process audio files"],ans:1,exp:"Zero-shot ability: GPT can perform tasks NOT explicitly trained for (e.g., French translation just from prompting 'Translate to French:'). Emerges from massive scale."},
+  {id:102,unit:'unit4',type:'mcq',q:"Transformer reads sequence in what manner?",opts:["Word by word, sequentially","Entire sequence at once, in parallel","Reverse order","Random order"],ans:1,exp:"Transformer reads the ENTIRE sequence at once (parallel processing). Unlike RNN/LSTM which process word by word. This makes training much faster."},
+  {id:103,unit:'unit1',type:'mcq',q:"Which is an application of NLP among these?",opts:["Self-driving cars","Facial recognition","Sentiment analysis","Object detection"],ans:2,exp:"Sentiment Analysis is an NLP application. Self-driving cars use Computer Vision. Facial recognition = Computer Vision. Object detection = Computer Vision."},
+  {id:104,unit:'unit3',type:'mcq',q:"LSTM solves which RNN problem?",opts:["Slow processing","Vanishing gradient problem","Large memory usage","Lack of parallelism"],ans:1,exp:"LSTM (Long Short-Term Memory) solves the VANISHING GRADIENT problem using gates (forget, input, output) that control information flow over long sequences."},
+  {id:105,unit:'unit2',type:'mcq',q:"An informed search strategy uses what uninformed search lacks?",opts:["A search without additional knowledge","A search using heuristics to guide the process","A search that expands all nodes equally","A search following predefined path"],ans:1,exp:"Informed search uses HEURISTIC functions (domain-specific knowledge) to guide search toward the goal efficiently. (Sample Q29 → Answer b)"}
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentPage='dashboard',timerRunning=false,timerSeconds=0,timerInterval,
+    mcqScore=0,mcqTotal=0,currentFilter='all',currentMCQs=[...allMCQs],
+    mockQuestions=[],mockAnswers={},mockCurrent=0,mockTimerInterval,mockSeconds=1800,
+    currentCard=0,cardOrder=Array.from({length:flashcards.length},(_,i)=>i);
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='none'});
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');pg.style.display='block';}
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    if(n.getAttribute('onclick')&&n.getAttribute('onclick').includes("'"+name+"'"))n.classList.add('active');
+  });
+  currentPage=name;
+  if(name==='top100'&&!document.getElementById('top100Container').innerHTML)initTop100();
+  if(name==='flashcards')initFlashcards();
+  if(name==='mcq')initMCQ();
+  window.scrollTo(0,0);
+}
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar'),main=document.getElementById('mainContent');
+  if(window.innerWidth<=768)sb.classList.toggle('mobile-open');
+  else{sb.classList.toggle('hidden');main.classList.toggle('expanded');}
+}
+// ============================================================
+// SEARCH
+// ============================================================
+const searchIndex=[
+  {title:'A* Search Algorithm',content:'f(n) g(n) h(n) heuristic admissible optimal evaluation function',type:'Unit 2',page:'unit2'},
+  {title:'Confusion Matrix Precision Recall',content:'TP FP TN FN precision recall accuracy F1 calculation formula numerical',type:'Unit 3',page:'unit3'},
+  {title:'BERT vs GPT Comparison',content:'bidirectional autoregressive MLM NSP next token prediction encoder decoder',type:'Unit 4',page:'unit4'},
+  {title:'CNN Architecture Pooling',content:'convolution pooling feature maps spatial image classification max pooling',type:'Unit 4',page:'unit4'},
+  {title:'GAN Generator Discriminator',content:'generative adversarial network generator discriminator fake real samples',type:'Unit 5',page:'unit5'},
+  {title:'Bayes Theorem Calculation',content:'P(A|B) conditional probability prior posterior likelihood naive bayes',type:'Unit 3',page:'unit3'},
+  {title:'K-Means Clustering',content:'centroids unsupervised clustering iteration assign update convergence',type:'Unit 3',page:'unit3'},
+  {title:'Transformer Self-Attention',content:'Q K V query key value positional encoding multi-head parallel',type:'Unit 4',page:'unit4'},
+  {title:'Types of AI Narrow General Super',content:'narrow AI weak AI general AI strong AI superintelligent Siri Alexa theoretical',type:'Unit 1',page:'unit1'},
+  {title:'Cheat Sheets',content:'quick reference search algorithms metrics neural networks generative AI',type:'Revision',page:'cheatsheet'},
+  {title:'Formula Sheet',content:'formulas equations precision recall accuracy A star BFS DFS bayes theorem',type:'Revision',page:'formulas'},
+  {title:'Top 100 Points',content:'most important points exam revision key facts',type:'Revision',page:'top100'},
+  {title:'Comparison Tables',content:'CNN RNN Transformer BERT GPT supervised unsupervised reinforcement',type:'Revision',page:'compare'},
+  ...allMCQs.slice(0,20).map(q=>({title:'MCQ: '+q.q.substring(0,50)+'...',content:q.q+' '+q.exp,type:'MCQ',page:'mcq'}))
+];
+function doSearch(val){
+  if(!val||val.length<2){if(currentPage==='search')showPage('dashboard');return;}
+  const v=val.toLowerCase();
+  const results=searchIndex.filter(i=>i.title.toLowerCase().includes(v)||i.content.toLowerCase().includes(v));
+  const container=document.getElementById('searchResults');
+  container.innerHTML=results.length===0?'<div style="color:var(--text3);text-align:center;padding:40px">No results. Try different keywords.</div>':
+    results.slice(0,12).map(r=>`<div class="search-result" onclick="showPage('${r.page}')"><div class="sr-type">${r.type}</div><div class="sr-title">${r.title}</div><div class="sr-context">${r.content.substring(0,100)}...</div></div>`).join('');
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='none';});
+  const sp=document.getElementById('page-search');sp.style.display='block';sp.classList.add('active');
+}
+// ============================================================
+// TIMER
+// ============================================================
+function toggleTimer(){
+  if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('timerPill').textContent='⏸ Paused';}
+  else{timerRunning=true;timerInterval=setInterval(()=>{timerSeconds++;const m=String(Math.floor(timerSeconds/60)).padStart(2,'0'),s=String(timerSeconds%60).padStart(2,'0');document.getElementById('timerPill').textContent=`⏱ ${m}:${s}`;},1000);}
+}
+// ============================================================
+// TOP 100
+// ============================================================
+function initTop100(){
+  document.getElementById('top100Container').innerHTML=top100Data.map((item,i)=>`<div class="top100-item"><div class="top100-num">${String(i+1).padStart(2,'0')}</div><div>${item}</div></div>`).join('');
+}
+// ============================================================
+// FLASHCARDS
+// ============================================================
+function initFlashcards(){renderCard();updateCardGrid();}
+function renderCard(){
+  const idx=cardOrder[currentCard];const c=flashcards[idx];
+  document.getElementById('fcFront').textContent=c.q;
+  document.getElementById('fcBack').textContent=c.a;
+  document.getElementById('fcCounter').textContent=`${currentCard+1} / ${flashcards.length}`;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function flipCard(){document.getElementById('flashcard').classList.toggle('flipped');}
+function nextCard(){if(currentCard<flashcards.length-1){currentCard++;renderCard();updateCardGrid();}}
+function prevCard(){if(currentCard>0){currentCard--;renderCard();updateCardGrid();}}
+function shuffleCards(){cardOrder=cardOrder.sort(()=>Math.random()-.5);currentCard=0;renderCard();updateCardGrid();}
+function goToCard(i){currentCard=i;renderCard();updateCardGrid();}
+function updateCardGrid(){
+  document.getElementById('cardGrid').innerHTML=cardOrder.map((_,i)=>`<div class="q-bubble ${i===currentCard?'answered':''}" onclick="goToCard(${i})">${i+1}</div>`).join('');
+}
+// ============================================================
+// MCQ BANK
+// ============================================================
+function initMCQ(){renderMCQs(allMCQs);}
+function renderMCQs(mcqs){
+  currentMCQs=mcqs;
+  document.getElementById('mcqContainer').innerHTML=mcqs.map((q,qi)=>`
+    <div class="mcq-card" id="mcq-card-${q.id}">
+      <div class="mcq-header"><div class="mcq-num">Q${qi+1}</div><div class="mcq-q">${q.q}</div></div>
+      <div class="mcq-tags"><span class="tag mcq">${q.unit.toUpperCase()}</span><span class="tag ${q.type==='tricky'?'hot':q.type==='numerical'?'imp':'green'}">${q.type.toUpperCase()}</span></div>
+      <div class="options" id="opts-${q.id}">
+        ${q.opts.map((opt,i)=>`<div class="option" onclick="checkAnswer(${q.id},${i},${q.ans})" id="opt-${q.id}-${i}"><div class="opt-letter">${String.fromCharCode(65+i)}</div><div>${opt}</div></div>`).join('')}
+      </div>
+      <div class="mcq-actions">
+        <button class="btn btn-primary" onclick="revealAnswer(${q.id},${q.ans})">✓ Check Answer</button>
+        <button class="btn btn-secondary" onclick="toggleExp(${q.id})">💡 Explanation</button>
+      </div>
+      <div class="answer-reveal" id="reveal-${q.id}">
+        <div class="correct-ans">✅ Correct: ${String.fromCharCode(65+q.ans)}) ${q.opts[q.ans]}</div>
+        <div class="explanation">${q.exp}</div>
+      </div>
+    </div>`).join('');
+}
+function checkAnswer(qId,selected,correct){
+  const opts=document.getElementById('opts-'+qId);
+  if(opts.dataset.answered)return;
+  opts.dataset.answered='1';
+  for(let i=0;i<4;i++){const o=document.getElementById(`opt-${qId}-${i}`);if(!o)continue;if(i===correct)o.classList.add('correct');else if(i===selected)o.classList.add('wrong');}
+  mcqTotal++;if(selected===correct)mcqScore++;
+  updateScore();
+  document.getElementById('reveal-'+qId).classList.add('show');
+  document.getElementById('mcqProgressBar').style.width=`${(mcqTotal/currentMCQs.length)*100}%`;
+}
+function revealAnswer(qId,ans){document.getElementById('reveal-'+qId).classList.add('show');}
+function toggleExp(qId){document.getElementById('reveal-'+qId).classList.toggle('show');}
+function filterMCQ(filter,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');currentFilter=filter;
+  const filtered=filter==='all'?allMCQs:allMCQs.filter(q=>q.unit===filter||q.type===filter);
+  renderMCQs(filtered);mcqScore=0;mcqTotal=0;updateScore();
+}
+function shuffleMCQ(){renderMCQs([...currentMCQs].sort(()=>Math.random()-.5));}
+function resetMCQ(){mcqScore=0;mcqTotal=0;updateScore();renderMCQs(currentMCQs);}
+function updateScore(){document.getElementById('scorePill').textContent=`Score: ${mcqScore}/${mcqTotal}`;}
+// ============================================================
+// MOCK TEST
+// ============================================================
+function startMock(){
+  mockQuestions=[...allMCQs].sort(()=>Math.random()-.5).slice(0,30);
+  mockAnswers={};mockCurrent=0;mockSeconds=1800;
+  document.getElementById('mockSetup').style.display='none';
+  document.getElementById('mockTest').style.display='block';
+  initQGrid();renderMockQ();
+  mockTimerInterval=setInterval(()=>{
+    mockSeconds--;const m=String(Math.floor(mockSeconds/60)).padStart(2,'0'),s=String(mockSeconds%60).padStart(2,'0');
+    document.getElementById('mockTimer').textContent=`${m}:${s}`;
+    if(mockSeconds<=0){clearInterval(mockTimerInterval);submitMock();}
+  },1000);
+}
+function initQGrid(){
+  document.getElementById('questionGrid').innerHTML=mockQuestions.map((_,i)=>`<div class="q-bubble" id="mb-${i}" onclick="mockGoTo(${i})">${i+1}</div>`).join('');
+}
+function renderMockQ(){
+  const q=mockQuestions[mockCurrent];
+  document.getElementById('mockProgress').textContent=`Question ${mockCurrent+1} of 30`;
+  const sel=mockAnswers[mockCurrent];
+  document.getElementById('mockQuestion').innerHTML=`
+    <div class="mcq-card">
+      <div class="mcq-header"><div class="mcq-num">Q${mockCurrent+1}</div><div class="mcq-q">${q.q}</div></div>
+      <div class="options">${q.opts.map((opt,i)=>`<div class="option ${sel===i?'selected':''}" onclick="mockSelect(${i})"><div class="opt-letter">${String.fromCharCode(65+i)}</div><div>${opt}</div></div>`).join('')}</div>
+    </div>`;
+  document.getElementById('prevBtn').disabled=mockCurrent===0;
+  document.getElementById('nextBtn').disabled=mockCurrent===29;
+}
+function mockSelect(opt){
+  mockAnswers[mockCurrent]=opt;
+  const b=document.getElementById('mb-'+mockCurrent);if(b)b.classList.add('answered');
+  document.getElementById('mockAttempted').textContent=Object.keys(mockAnswers).length;
+  renderMockQ();
+}
+function mockNav(dir){mockCurrent=Math.max(0,Math.min(29,mockCurrent+dir));renderMockQ();}
+function mockGoTo(i){mockCurrent=i;renderMockQ();}
+function submitMock(){
+  clearInterval(mockTimerInterval);
+  document.getElementById('mockTest').style.display='none';
+  let correct=0,wrong=0,skipped=0;
+  mockQuestions.forEach((q,i)=>{if(mockAnswers[i]===undefined)skipped++;else if(mockAnswers[i]===q.ans)correct++;else wrong++;});
+  const score=correct-(wrong*0.25),pct=Math.round((correct/30)*100);
+  document.getElementById('mockResult').style.display='block';
+  document.getElementById('mockResult').innerHTML=`
+    <div class="hero" style="text-align:center">
+      <div class="hero-title">📊 Test Complete!</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px">
+        <div class="stat-card"><div class="stat-num" style="color:var(--green)">${correct}</div><div class="stat-label">Correct</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--red)">${wrong}</div><div class="stat-label">Wrong</div></div>
+        <div class="stat-card"><div class="stat-num">${skipped}</div><div class="stat-label">Skipped</div></div>
+        <div class="stat-card"><div class="stat-num">${score.toFixed(2)}</div><div class="stat-label">Net Score</div></div>
+      </div>
+      <div style="font-size:1.4rem;font-weight:700;margin-top:20px;color:${pct>=70?'var(--green)':pct>=50?'var(--accent3)':'var(--red)'}">${pct}% — ${pct>=70?'🏆 Excellent!':pct>=50?'👍 Good Effort':'📚 Keep Studying'}</div>
+    </div>
+    <div style="margin-top:20px"><div class="section-title">📋 Answer Review</div>
+    ${mockQuestions.map((q,i)=>{
+      const ua=mockAnswers[i],isC=ua===q.ans,isS=ua===undefined;
+      return `<div class="mcq-card ${!isS&&isC?'correct-card':!isS?'wrong-card':''}">
+        <div style="font-size:.83rem"><b>Q${i+1}.</b> ${q.q}</div>
+        <div style="margin-top:6px;font-size:.78rem">${isS?'<span style="color:var(--text3)">⏭ Skipped</span>':isC?`<span style="color:var(--green)">✅ ${String.fromCharCode(65+ua)}) Correct</span>`:`<span style="color:var(--red)">❌ Your: ${String.fromCharCode(65+ua)}) | Correct: ${String.fromCharCode(65+q.ans)})</span>`}</div>
+        <div style="font-size:.76rem;color:var(--text3);margin-top:4px">${q.exp}</div>
+      </div>`;}).join('')}
+    </div>
+    <button class="btn btn-primary" style="margin-top:16px" onclick="resetMock()">🔄 Retake Test</button>`;
+}
+function resetMock(){document.getElementById('mockResult').style.display='none';document.getElementById('mockSetup').style.display='block';}
+// ============================================================
+// INIT
+// ============================================================
+window.onload=function(){
+  showPage('dashboard');initMCQ();
+  document.addEventListener('click',function s(){toggleTimer();document.removeEventListener('click',s);},{once:true});
+};
+</script>
+</body>
+</html>
