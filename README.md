@@ -64,13 +64,13 @@
 # No installation required! Just open the HTML file.
 
 # Option 1: Direct open
-double-click INT428_AI_ExamPrep.html
+double-click int428.html
 
 # Option 2: Via terminal (macOS/Linux)
-open INT428_AI_ExamPrep.html
+open int428.html
 
 # Option 3: Via terminal (Windows)
-start INT428_AI_ExamPrep.html
+start int428.html
 
 # Option 4: Live Server (VS Code)
 # Right-click → Open with Live Server
@@ -369,9 +369,9 @@ Storage:   No backend required — fully client-side
 ```
 INT428-AI-ExamPrep/
 │
-├── 📄 INT428_AI_ExamPrep.html    ← Main file (open this!)
+├── 📄 int428.html    ← Main file (open this!)
 │
-├── 📂 source-materials/           ← Input files used to build this
+├── 📂 source-materials/           
 │   ├── syllabus/
 │   │   └── INT428_Syllabus.pdf
 │   ├── papers/
@@ -430,7 +430,7 @@ Found an error? Want to add more questions? Contributions are welcome!
 
 ```bash
 # Fork the repository
-git fork https://github.com/yourusername/INT428-AI-ExamPrep
+git fork https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE
 
 # Create your feature branch
 git checkout -b feature/add-more-mcqs
@@ -464,11 +464,11 @@ git push origin feature/add-more-mcqs
 ## 🌟 Star History
 
 <div align="center">
-  <a href="https://github.com/yourusername/INT428-AI-ExamPrep">
-    <img src="https://img.shields.io/github/stars/yourusername/INT428-AI-ExamPrep?style=social" alt="Stars"/>
+  <a href="https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE">
+    <img src="https://img.shields.io/github/stars/yourusername/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Stars"/>
   </a>
-  <a href="https://github.com/yourusername/INT428-AI-ExamPrep/fork">
-    <img src="https://img.shields.io/github/forks/yourusername/INT428-AI-ExamPrep?style=social" alt="Forks"/>
+  <a href="https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE/fork">
+    <img src="https://img.shields.io/github/forks/yourusername/INT-428-EXAM-PREP-WEBSITE?style=social" alt="Forks"/>
   </a>
 </div>
 
