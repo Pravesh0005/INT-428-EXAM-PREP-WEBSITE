@@ -54,6 +54,7 @@ alt="Typing SVG"/>
 - [📸 Screenshots](#-screenshots)
 - [🛠 Tech Stack](#-tech-stack)
 - [📁 File Structure](#-file-structure)
+- [🎓 Study Strategy](#-study-strategy)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 
