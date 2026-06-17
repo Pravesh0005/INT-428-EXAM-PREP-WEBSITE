@@ -370,7 +370,6 @@ Storage:   No backend required — fully client-side
 ```
 📂 INT428-AI-ExamPrep/
 │
-├── 📄 int428.html    ← Main file (open this!)
 │
 ├── 📂 source-materials/           
 │   ├── 📂 syllabus/
@@ -386,6 +385,8 @@ Storage:   No backend required — fully client-side
 │   ├── Unit 5 GenAI & Prompt Engineering
 │   └── Unit 6 Data Analytics & MLOps
 │
+├── 📄 int428.html    ← Main file (open this!)
+|
 └── 📄 README.md                   ← You are here
 ```
 
