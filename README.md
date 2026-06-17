@@ -368,20 +368,23 @@ Storage:   No backend required — fully client-side
 ## 📁 File Structure
 
 ```
-INT428-AI-ExamPrep/
+📂 INT428-AI-ExamPrep/
 │
 ├── 📄 int428.html    ← Main file (open this!)
 │
 ├── 📂 source-materials/           
-│   ├── syllabus/
+│   ├── 📂 syllabus/
 │   │   └── INT428_Syllabus.pdf
-│   ├── papers/
+│   ├── 📂 papers/
 │   │   ├── Sample_Paper.pdf
 │   │   └── CA_Test2.jpg
-│   └── notes/
-│       ├── UNIT1.pptx
-│       ├── UNIT2.pptx
-│       └── Unit4.pptx
+│   ├── 📂 notes/
+│   ├── Unit 1 Materials
+│   ├── Unit 2 Materials
+│   ├── Unit 3 Materials
+│   ├── Unit 4 Materials
+│   ├── Unit 5 GenAI & Prompt Engineering
+│   └── Unit 6 Data Analytics & MLOps
 │
 └── 📄 README.md                   ← You are here
 ```
