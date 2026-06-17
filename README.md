@@ -375,11 +375,6 @@ Storage:   No backend required — fully client-side
 │
 │
 ├── 📂 source-materials/           
-│   ├── 📂 syllabus/
-│   │   └── INT428_Syllabus.pdf
-│   ├── 📂 papers/
-│   │   ├── Sample_Paper.pdf
-│   │   └── CA_Test2.jpg
 │   ├── 📂 notes/
 │   ├── Unit 1 Materials
 │   ├── Unit 2 Materials
@@ -387,10 +382,17 @@ Storage:   No backend required — fully client-side
 │   ├── Unit 4 Materials
 │   ├── Unit 5 GenAI & Prompt Engineering
 │   └── Unit 6 Data Analytics & MLOps
+│   ├── 📂 papers/
+│   │   ├── Sample_Paper.pdf
+│   │   └── CA_Test2.jpg
+│   ├── 📂 syllabus/
+│       └── INT428_Syllabus.pdf
 │
-├── 📄 int428.html    ← Main file (open this!)
+├── 📄 LICENSE
 |
-└── 📄 README.md                   ← You are here
+├── 📄 README.md                ← You are here
+|
+└── 📄 int428.html    ← Main file (open this!)
 ```
 
 > 💡 **The entire exam prep experience is contained in a single HTML file.**  
