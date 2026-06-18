@@ -367,9 +367,10 @@ start int428.html
   <img src="https://img.shields.io/badge/✨_CLICK_TO_START_THE_EXPERIENCE-INT428_AI_ESSENTIALS-00C853?style=for-the-badge&logo=netlify&logoColor=white" alt="Open Live Demo"/>
 </a>
 
-<br><br>
+<br>
 
-<sub><b>One click. Full revision. Zero setup. Built for instant exam prep.</b></sub>
+**One click | Full revision | Zero setup.** 
+**Built for instant exam prep.**
 
 <br>
 
