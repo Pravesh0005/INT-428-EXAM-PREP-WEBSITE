@@ -367,7 +367,7 @@ start int428.html
   <img src="https://img.shields.io/badge/✨_CLICK_TO_START_THE_EXPERIENCE-INT428_AI_ESSENTIALS-00C853?style=for-the-badge&logo=netlify&logoColor=white" alt="Open Live Demo"/>
 </a>
 
-<br>
+<br><br>
 
 **One click | Full revision | Zero setup.** 
 
