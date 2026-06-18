@@ -486,7 +486,7 @@ Found an error? Want to add more questions? Contributions are welcome!
 
 ```bash
 # Fork the repository
-git fork https://github.com/yourusername/INT-428-EXAM-PREP-WEBSITE
+git fork https://github.com/Pravesh0005/INT-428-EXAM-PREP-WEBSITE
 
 # Create your feature branch
 git checkout -b feature/add-more-mcqs
