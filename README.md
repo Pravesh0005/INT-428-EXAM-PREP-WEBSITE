@@ -371,6 +371,12 @@ start int428.html
 
 <sub><b>One click. Full revision. Zero setup. Built for instant exam prep.</b></sub>
 
+<br>
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=18&pause=1000&color=00C853&center=true&vCenter=true&width=900&lines=Complete+Notes+for+All+6+Units;120%2B+Exam+Focused+MCQs;Interactive+Flashcards+and+Mock+Tests;BERT+vs+GPT+vs+CNN+vs+RNN+Comparisons;High+Yield+Revision+for+LPU+INT428;Built+for+Last+Minute+Exam+Preparation" alt="Typing SVG" />
+
+<br>
+
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=70&section=footer" width="100%"/>
 
 </div>
