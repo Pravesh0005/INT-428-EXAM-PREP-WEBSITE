@@ -426,21 +426,21 @@ Storage:   No backend required — fully client-side
 |   |
 |   | 
 │   ├── 📂 notes/
-│   |   ├── Unit 1 Materials
-│   |   ├── Unit 2 Materials
-│   |   ├── Unit 3 Materials
-│   |   ├── Unit 4 Materials
-│   |   ├── Unit 5 GenAI & Prompt Engineering
-│   |   └── Unit 6 Data Analytics & MLOps
+│   |   ├── 📄 Unit 1 Materials
+│   |   ├── 📄 Unit 2 Materials
+│   |   ├── 📄Unit 3 Materials
+│   |   ├── 📄 Unit 4 Materials
+│   |   ├── 📄 Unit 5 GenAI & Prompt Engineering Materials
+│   |   └── 📄 Unit 6 Data Analytics & MLOps Materials
 |   | 
 |   | 
 │   ├── 📂 papers/
-│   │   ├── Sample_Paper.pdf
-│   │   └── CA_Test2.jpg
+│   │   ├── 📄 Sample_Paper.pdf
+│   │   └── 📄 CA_Test2.jpg
 |   | 
 |   | 
 │   └── 📂 syllabus/
-│       └── INT428_Syllabus.pdf
+│       └── 📄 INT428_Syllabus.pdf
 │
 ├── 📄 LICENSE
 |
